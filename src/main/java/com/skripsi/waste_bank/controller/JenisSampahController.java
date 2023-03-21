@@ -1,11 +1,16 @@
 package com.skripsi.waste_bank.controller;
 
+import com.skripsi.waste_bank.dto.ResponseData;
 import com.skripsi.waste_bank.models.JenisSampah;
 import com.skripsi.waste_bank.services.JenisSampahService;
+import com.skripsi.waste_bank.services.SendImageService;
+import com.skripsi.waste_bank.utils.Constant;
+import com.skripsi.waste_bank.utils.JenisSampahValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -13,24 +18,37 @@ import java.util.List;
 @RequestMapping("/api/v1/jenis-sampah/")
 public class JenisSampahController {
     @Autowired private JenisSampahService jenisSampahService;
+    @Autowired private SendImageService sendImageService;
 
     @GetMapping("all")
-    public ResponseEntity<List<JenisSampah>> getAllJenisSampah(){
-        return ResponseEntity.ok(jenisSampahService.getAllJenisSampah());
+    public ResponseEntity<ResponseData<List<JenisSampah>>> getAllJenisSampah(){
+        return jenisSampahService.getAllJenisSampah();
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<JenisSampah> getJenisSampahById(@PathVariable("id") Long id){
-        return ResponseEntity.ok(jenisSampahService.getJenisSampahById(id));
+    public ResponseEntity<ResponseData<JenisSampah>> getJenisSampahById(@PathVariable("id") Long id){
+        return jenisSampahService.getJenisSampahById(id);
     }
 
     @PostMapping("create")
-    public ResponseEntity<JenisSampah> createJenisSampah(@RequestBody JenisSampah jenisSampah){
-        return ResponseEntity.status(HttpStatus.CREATED).body(jenisSampahService.createJenisSampah(jenisSampah));
+    public ResponseEntity<ResponseData<JenisSampah>> createJenisSampah(@RequestBody JenisSampah jenisSampah){
+        return jenisSampahService.createJenisSampah(jenisSampah);
     }
 
-    @PutMapping("update")
-    public ResponseEntity<JenisSampah> updateJenisSampah(@RequestBody JenisSampah jenisSampah){
-        return ResponseEntity.status(HttpStatus.OK).body(jenisSampahService.updateJenisSampah(jenisSampah));
+    @PutMapping("update/{id}")
+    public ResponseEntity<ResponseData<JenisSampah>> updateJenisSampah(@RequestParam(required = false) JenisSampahValue jenisSampahValue,
+                                                                       @PathVariable("id") Long id,
+                                                                       @RequestParam(required = false)MultipartFile file){
+        JenisSampah jenisSampah = new JenisSampah();
+        String url = "";
+        if (file != null){
+            url = sendImageService.uploadImage(file);
+        }else {
+            url = Constant.DEFAULT_URL;
+        }
+        jenisSampah.setNamaJenisSampah(jenisSampahValue);
+        jenisSampah.setImgUrl(url);
+
+        return jenisSampahService.updateJenisSampah(id,jenisSampah);
     }
 }

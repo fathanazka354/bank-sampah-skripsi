@@ -1,5 +1,6 @@
 package com.skripsi.waste_bank.models;
 
+import com.skripsi.waste_bank.utils.Constant;
 import com.skripsi.waste_bank.utils.JenisSampahValue;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -25,10 +26,12 @@ public class JenisSampah {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idJenisSampah;
 
-    @JoinColumn(name = "nama_jenis_sampah")
+    @JoinColumn(name = "nama_jenis_sampah",nullable = false)
     @Enumerated(EnumType.STRING)
-    @NotBlank(message = "Nama Jenis Sampah cannot blank")
     private JenisSampahValue namaJenisSampah;
+
+    @Column(name = "image_url")
+    private String imgUrl = Constant.DEFAULT_URL;
 
     @Value("false")
     @JoinColumn(name = "is_deleted")

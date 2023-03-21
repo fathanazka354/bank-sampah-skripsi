@@ -2,6 +2,7 @@ package com.skripsi.waste_bank.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.skripsi.waste_bank.utils.Constant;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
@@ -43,7 +44,7 @@ public class Admin {
     private String password;
 
     @Column(name = "image_url")
-    private String imgUrl = "";
+    private String imgUrl = Constant.DEFAULT_URL;
 
     @Column(name = "isActive")
     private boolean isActive = true;

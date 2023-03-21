@@ -46,6 +46,10 @@ public class Information {
     @NotBlank(message = "Penerbit must be filled")
     private String penerbit;
 
+
+    @Column(name = "image_url")
+    private String imgUrl = "";
+
     @Value("false")
     @JoinColumn(name = "is_deleted")
     private boolean isDeleted;

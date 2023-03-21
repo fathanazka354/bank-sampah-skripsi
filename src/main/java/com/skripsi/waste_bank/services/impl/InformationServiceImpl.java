@@ -58,6 +58,7 @@ public class InformationServiceImpl implements InformationService {
         Information information1 = new Information();
         information1.setIdInformation(information.getIdInformation());
         information1.setJudul(information.getJudul());
+        information1.setImgUrl(information.getImgUrl());
         information1.setAdmin(adminRepository.findById(idAdmin).get());
         information1.setNasabah(nasabahRepository.findById(idNasabah).get());
         information1.setDeskripsi(information.getDeskripsi());
@@ -85,11 +86,13 @@ public class InformationServiceImpl implements InformationService {
         String judul = information.getJudul() == null ? informationById.getJudul() : information.getJudul();
         String deskripsi = information.getDeskripsi() == null ? informationById.getDeskripsi() : information.getDeskripsi();
         String penerbit = information.getPenerbit() == null ? informationById.getPenerbit() : information.getPenerbit();
+        String imagUrl = information.getImgUrl() == null ? informationById.getImgUrl() : information.getImgUrl();
 
         informationObj.setIdInformation(id);
         informationObj.setJudul(judul);
         informationObj.setPenerbit(penerbit);
         informationObj.setDeskripsi(deskripsi);
+        informationObj.setImgUrl(imagUrl);
         informationObj.setNasabah(informationById.getNasabah());
         informationObj.setAdmin(informationById.getAdmin());
 
