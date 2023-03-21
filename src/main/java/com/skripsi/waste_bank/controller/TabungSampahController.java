@@ -1,5 +1,6 @@
 package com.skripsi.waste_bank.controller;
 
+import com.skripsi.waste_bank.dto.ResponseData;
 import com.skripsi.waste_bank.models.TabungSampah;
 import com.skripsi.waste_bank.services.TabungSampahService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,33 +17,50 @@ public class TabungSampahController {
     private TabungSampahService tabungSampahService;
 
     @GetMapping("all")
-    public ResponseEntity<List<TabungSampah>> getAllTabungSampah(){
-        return ResponseEntity.status(HttpStatus.OK).body(tabungSampahService.getAllTabungSampah());
+    public ResponseEntity<ResponseData<List<TabungSampah>>> getAllTabungSampah(){
+        return tabungSampahService.getAllTabungSampah();
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<TabungSampah> getTabungSampahById(@PathVariable("id") Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(tabungSampahService.getTabungSampahById(id));
+    public ResponseEntity<ResponseData<TabungSampah>> getTabungSampahById(@PathVariable("id") Long id){
+        return tabungSampahService.getTabungSampahById(id);
     }
 
     @GetMapping("nasabah/{id}")
-    public ResponseEntity<List<TabungSampah>> getTabungSampahByIdNasabah(@PathVariable("id") Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(tabungSampahService.getTabungSampahByIdNasabah(id));
+    public ResponseEntity<ResponseData<List<TabungSampah>>> getTabungSampahByIdNasabah(@PathVariable("id") Long id){
+        return tabungSampahService.getTabungSampahByIdNasabah(id);
     }
 
-    @PostMapping("create/jenis-pengangkutan/{id}")
-    public ResponseEntity<TabungSampah> getTabungSampahById(@RequestBody TabungSampah tabungSampah, @PathVariable("id")Long id){
-        return ResponseEntity.status(HttpStatus.CREATED).body(tabungSampahService.createTabungSampah(tabungSampah, id));
+    @PostMapping("create/tabung-sampah-detail/{tabung-sampah-detail}/jenis-pengangkutan/{id-jenis-pengangkutan}/admin/{id-admin}/nasabah/{id-nasabah}")
+    public ResponseEntity<ResponseData<TabungSampah>> createTabungSampah(
+            @RequestBody TabungSampah tabungSampah,
+            @PathVariable("tabung-sampah-detail")Long idTabungSampahDetail,
+            @PathVariable("id-jenis-pengangkutan")Long idJenisPengangkutan,
+            @PathVariable("id-nasabah")Long idNasabah,
+            @PathVariable("id-admin")Long idAdmin
+    ){
+        return tabungSampahService.createTabungSampah(idTabungSampahDetail, idJenisPengangkutan,idNasabah,idAdmin,tabungSampah);
     }
 
-    @PutMapping("update")
-    public ResponseEntity<TabungSampah> updateTabungSampah(@RequestBody TabungSampah tabungSampah){
-        return ResponseEntity.status(HttpStatus.OK).body(tabungSampahService.updateTabungSampah(tabungSampah));
+    @PutMapping("update/{tabung-sampah}/tabung-sampah-detail/{tabung-sampah-detail}/jenis-pengangkutan/{id-jenis-pengangkutan}/admin/{id-admin}/nasabah/{id-nasabah}")
+    public ResponseEntity<ResponseData<TabungSampah>> updateTabungSampah(
+            @PathVariable("tabung-sampah")Long idTabungSampah,
+            @PathVariable("tabung-sampah-detail")Long idTabungSampahDetail,
+            @PathVariable("id-jenis-pengangkutan")Long idJenisPengangkutan,
+            @PathVariable("id-nasabah")Long idNasabah,
+            @PathVariable("id-admin")Long idAdmin,
+            @RequestParam(required = false) double totalTabungSampah,
+            @RequestParam(required = false) double totalBeratSampah
+    ){
+        TabungSampah tabungSampah = new TabungSampah();
+        tabungSampah.setTotalTabungSampah(totalTabungSampah);
+        tabungSampah.setTotalBeratSampah(totalBeratSampah);
+        return tabungSampahService.updateTabungSampah(idTabungSampah,idTabungSampahDetail, idJenisPengangkutan,idNasabah,idAdmin, tabungSampah);
     }
 
     @DeleteMapping("delete/{id}")
-    public ResponseEntity<String> deleteTabungSampah(@PathVariable("id") Long id){
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(tabungSampahService.deleteTabungSampah(id));
+    public ResponseEntity<ResponseData<String>> deleteTabungSampah(@PathVariable("id") Long id){
+        return tabungSampahService.deleteTabungSampah(id);
     }
 
 }

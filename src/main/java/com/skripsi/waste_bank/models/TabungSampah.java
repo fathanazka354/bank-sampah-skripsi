@@ -23,6 +23,12 @@ public class TabungSampah {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTabungSampah;
 
+    @JoinColumn(name = "total_tabung_sampah")
+    private double totalTabungSampah;
+
+    @JoinColumn(name = "total_berat_sampah")
+    private double totalBeratSampah;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_tabung_sampah_detail")
     private TabungSampahDetail tabungSampahDetail;

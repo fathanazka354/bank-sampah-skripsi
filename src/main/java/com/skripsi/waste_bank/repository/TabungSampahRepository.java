@@ -12,7 +12,7 @@ public interface TabungSampahRepository extends JpaRepository<TabungSampah, Long
     @Modifying
     @Transactional
     @Query("UPDATE TabungSampah ts SET ts.isDeleted = true")
-    void deleteTabungSampah();
+    int deleteTabungSampah();
 
     @Query("SELECT ts FROM TabungSampah ts")
     List<TabungSampah> getAllTabungSampah();
