@@ -1,5 +1,6 @@
 package com.skripsi.waste_bank.dto;
 
+import com.skripsi.waste_bank.utils.Constant;
 import jakarta.persistence.JoinColumn;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -27,6 +28,9 @@ public class NasabahDTO {
     @JoinColumn(name = "address")
     @NotBlank(message = "Value Not blank")
     private String address;
+
+    @JoinColumn(name = "img_url")
+    private String imgUrl = Constant.DEFAULT_URL;
 
     @Value("false")
     @JoinColumn(name = "is_deleted")

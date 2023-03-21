@@ -67,25 +67,57 @@ public class AuthController {
         return adminService.updateAdmin(id, admin);
     }
 
+
+
 //  nasabah
     @GetMapping("nasabah")
-    public ResponseEntity<List<Nasabah>> getAllNasabah(){
-        return ResponseEntity.status(HttpStatus.OK).body(nasabahService.getAllNasabah());
+    public ResponseEntity<ResponseData<List<Nasabah>>> getAllNasabah(){
+        return nasabahService.getAllNasabah();
     }
 
     @GetMapping("nasabah/{id}")
-    public ResponseEntity<Nasabah> getNasabahById(@PathVariable("id") Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(nasabahService.getNasabahById(id));
+    public ResponseEntity<ResponseData<Nasabah>> getNasabahById(@PathVariable("id") Long id){
+        return nasabahService.getNasabahById(id);
+    }
+
+    @PostMapping("nasabah/login")
+    public ResponseEntity<ResponseData<Nasabah>> loginNasabah( @RequestParam(required = false) String username,
+                                                               @RequestParam(required = false) String email,
+                                                               @RequestParam(required = false) String password){
+        return nasabahService.login(username, email, password);
     }
 
     @PostMapping("nasabah/create")
-    public ResponseEntity<Nasabah> createNasabah(@RequestBody NasabahDTO nasabahDto){
+    public ResponseEntity<ResponseData<Nasabah>> createNasabah(@RequestBody NasabahDTO nasabahDto){
         Nasabah nasabah = modelMapper.map(nasabahDto, Nasabah.class);
-        return ResponseEntity.status(HttpStatus.CREATED).body(nasabahService.createNasabah(nasabah));
+        return nasabahService.createNasabah(nasabah);
     }
 
-    @PutMapping("nasabah/update")
-    public ResponseEntity<Nasabah> updateNasabah(@RequestBody Nasabah nasabah){
-        return ResponseEntity.status(HttpStatus.OK).body(nasabahService.updateNasabahById(nasabah));
+    @PutMapping("nasabah/update/{id}")
+    public ResponseEntity<ResponseData<Nasabah>> updateNasabah(@PathVariable("id") Long id,
+                                                               @RequestParam(required = false) String username,
+                                                               @RequestParam(required = false) String email,
+                                                               @RequestParam(required = false) String password,
+                                                               @RequestParam(required = false) String address,
+                                                               @RequestParam(required = false) MultipartFile file){
+        Nasabah nasabah = new Nasabah();
+        String url = "";
+        if (file != null){
+            url = sendImageService.uploadImage(file);
+        }else {
+            url = Constant.DEFAULT_URL;
+        }
+
+        nasabah.setPassword(password);
+        nasabah.setUsername(username);
+        nasabah.setEmail(email);
+        nasabah.setAddress(address);
+        nasabah.setImgUrl(url);
+        return nasabahService.updateNasabahById(id,nasabah);
+    }
+
+    @DeleteMapping("nasabah/delete/{id}")
+    public ResponseEntity<ResponseData<String>> deleteNasabahById(@PathVariable("id") Long id){
+        return nasabahService.deleteNasabahById(id);
     }
 }

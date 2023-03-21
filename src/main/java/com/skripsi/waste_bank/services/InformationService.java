@@ -1,18 +1,20 @@
 package com.skripsi.waste_bank.services;
 
+import com.skripsi.waste_bank.dto.ResponseData;
 import com.skripsi.waste_bank.models.Information;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public interface InformationService {
-    List<Information> getAllInformation();
-    List<Information> getAllInformationActive();
-    Information getInformationById(Long id);
-    String createInformation(Information information, Long idAdmin, Long idNasabah);
+    ResponseEntity<ResponseData<List<Information>>> getAllInformation();
+    ResponseEntity<ResponseData<List<Information>>> getAllInformationActive();
+    ResponseEntity<ResponseData<Information>> getInformationById(Long id);
+    ResponseEntity<ResponseData<String>> createInformation(Information information, Long idAdmin, Long idNasabah);
     List<Information> createManyInformation(List<Information> informations);
-    String updateInformation(Information information);
-    String deleteInformation(Long id);
+    ResponseEntity<ResponseData<String>> updateInformation(Long id,Information information);
+    ResponseEntity<ResponseData<String>> deleteInformation(Long id);
 
 }

@@ -1,6 +1,7 @@
 package com.skripsi.waste_bank.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
@@ -17,6 +18,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter@Setter@AllArgsConstructor@NoArgsConstructor@Entity@Table(name = "admin_tb")
 public class Admin {
@@ -44,6 +46,10 @@ public class Admin {
 
     @Column(name = "isActive")
     private boolean isActive = true;
+
+    @OneToMany(mappedBy = "nasabah")
+    @JsonIgnore
+    private List<AmbilTabungan> ambilTabungans;
 
     @CreationTimestamp
     @JoinColumn(name = "created_at",updatable = false)

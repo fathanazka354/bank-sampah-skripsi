@@ -1,5 +1,6 @@
 package com.skripsi.waste_bank.controller;
 
+import com.skripsi.waste_bank.dto.ResponseData;
 import com.skripsi.waste_bank.models.AmbilTabungan;
 import com.skripsi.waste_bank.services.AmbilTabunganService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,27 +16,32 @@ import java.util.List;
 class AmbilTabunganController {
     @Autowired private AmbilTabunganService ambilTabunganService;
     @GetMapping("all")
-    public ResponseEntity<List<AmbilTabungan>> getAllAmbilTabungan(){
-        return ResponseEntity.ok(ambilTabunganService.getAllAmbilTabungan());
+    public ResponseEntity<ResponseData<List<AmbilTabungan>>> getAllAmbilTabungan(){
+        return ambilTabunganService.getAllAmbilTabungan();
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<AmbilTabungan> getAmbilTabunganById(@PathVariable("id") Long id){
-        return ResponseEntity.ok(ambilTabunganService.getAmbilTabunganById(id));
+    public ResponseEntity<ResponseData<AmbilTabungan>> getAmbilTabunganById(@PathVariable("id") Long id){
+        return ambilTabunganService.getAmbilTabunganById(id);
     }
 
-    @PostMapping("create")
-    public ResponseEntity<AmbilTabungan> createAmbilTabungan(@RequestBody AmbilTabungan ambilTabungan){
-        return ResponseEntity.status(HttpStatus.CREATED).body(ambilTabunganService.createTabungan(ambilTabungan, ambilTabungan.getNasabah().getIdNasabah()));
+    @PostMapping("create/admin/{id-admin}/nasabah/{id-nasabah}")
+    public ResponseEntity<ResponseData<AmbilTabungan>> createAmbilTabungan(@RequestBody AmbilTabungan ambilTabungan,
+                                                                           @PathVariable("id-admin")Long idAdmin,
+                                                                           @PathVariable("id-nasabah")Long idNasabah){
+        return ambilTabunganService.createTabungan(ambilTabungan,idNasabah, idAdmin);
     }
 
     @PutMapping("update/{id}")
-    public ResponseEntity<AmbilTabungan> updateAmbilTabungan(@RequestBody AmbilTabungan ambilTabungan,@PathVariable("id") Long id){
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(ambilTabunganService.updateTabungan(ambilTabungan, id));
+    public ResponseEntity<ResponseData<AmbilTabungan>> updateAmbilTabungan(@PathVariable("id") Long id,
+                                                                           @RequestParam(required = false) double saldoTaked){
+        AmbilTabungan ambilTabungan = new AmbilTabungan();
+        ambilTabungan.setSaldoTaked(saldoTaked);
+        return ambilTabunganService.updateTabungan(ambilTabungan, id);
     }
 
     @DeleteMapping("delete/{id}")
-    public ResponseEntity<String> deleteAmbilTabungan(@PathVariable("id") Long idAmbilTabungan){
-        return ResponseEntity.ok(ambilTabunganService.deleteAmbilTabungan(idAmbilTabungan));
+    public ResponseEntity<ResponseData<String>> deleteAmbilTabungan(@PathVariable("id") Long idAmbilTabungan){
+        return ambilTabunganService.deleteAmbilTabungan(idAmbilTabungan);
     }
 }

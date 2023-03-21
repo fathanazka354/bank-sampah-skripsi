@@ -70,7 +70,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         StringBuilder builder = new StringBuilder();
         builder.append(ex.getMethod());
         builder.append(
-                " method is not supported for this request. Supperted method are "
+                " method is not supported for this request. Supported method are "
         );
         ex.getSupportedHttpMethods().forEach(t -> builder.append(t + " "));
         ApiError apiError = new ApiError(HttpStatus.METHOD_NOT_ALLOWED, ex.getLocalizedMessage(), builder.toString());
@@ -80,7 +80,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<Object> handlerNoSuchElementException(HttpServletRequest req, NoSuchElementException ex){
         String builder = ex.getMessage() +
-                " The row for address is not existent  ";
+                "The row for address is not existent";
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST);
         apiError.setMessage(builder);
         return new ResponseEntity<>(apiError, new HttpHeaders(),apiError.getStatus());

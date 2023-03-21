@@ -32,6 +32,10 @@ public class AmbilTabungan {
     @JoinColumn(name = "id_user")
     private Nasabah nasabah;
 
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "id_admin")
+    private Admin admin;
+
     @Value("false")
     @JoinColumn(name = "is_deleted")
     private boolean isDeleted;

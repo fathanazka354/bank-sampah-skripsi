@@ -30,20 +30,6 @@ public class AdminServiceImpl implements AdminService {
         responseData.setStatus("Success");
         return new ResponseEntity(responseData, HttpStatus.OK);
     }
-
-//    ResponseEntity<ResponseData<T>> extractData(){
-//        ResponseData responseData = new ResponseData();
-//        if (adminRepository.findAll().isEmpty()){
-//            responseData.setData(T);
-//            responseData.setStatus("Failed");
-//            logger.info("Admin is empty");
-//            return new ResponseEntity(responseData,HttpStatus.NO_CONTENT);
-//        }
-//        responseData.setData(adminRepository.findAll());
-//        responseData.setStatus("Success");
-//        return new ResponseEntity(adminRepository.findAll(), HttpStatus.OK);
-//    }
-
     @Override
     public ResponseEntity<ResponseData<Admin>> getAdminById(Long id){
         return extractGetAdminById(id);
@@ -82,7 +68,7 @@ public class AdminServiceImpl implements AdminService {
                     return null;
                 }
                 );
-        responseData.setData(adminRepository.saveAndFlush(admin));
+        responseData.setData("Data Created");
         responseData.setStatus("Success");
         return new ResponseEntity<>(responseData, HttpStatus.CREATED);
     }

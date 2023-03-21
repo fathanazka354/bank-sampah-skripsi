@@ -4,6 +4,7 @@ import com.cloudinary.Cloudinary;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import com.skripsi.waste_bank.utils.EmailValidation;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -31,4 +32,6 @@ public class WasteBankApplication {
 	public ModelMapper modelMapper(){
 		return new ModelMapper();
 	}
+	@Bean
+	public EmailValidation emailValidation(){return new EmailValidation();}
 }

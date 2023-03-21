@@ -1,6 +1,7 @@
 package com.skripsi.waste_bank.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.skripsi.waste_bank.utils.Constant;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -47,6 +48,9 @@ public class Nasabah {
     @JoinColumn(name = "address")
     @NotBlank(message = "address can Not blank")
     private String address;
+
+    @Column(name = "image_url")
+    private String imgUrl = Constant.DEFAULT_URL;
 
     @Value("false")
     @JoinColumn(name = "is_deleted")

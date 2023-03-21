@@ -1,5 +1,6 @@
 package com.skripsi.waste_bank.controller;
 
+import com.skripsi.waste_bank.dto.ResponseData;
 import com.skripsi.waste_bank.models.Information;
 import com.skripsi.waste_bank.services.InformationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,32 +17,40 @@ public class InformationController {
     InformationService informationService;
 
     @GetMapping("all")
-    public ResponseEntity<List<Information>> getAllInformation(){
-        return ResponseEntity.status(HttpStatus.OK).body(informationService.getAllInformation());
+    public ResponseEntity<ResponseData<List<Information>>> getAllInformation(){
+        return informationService.getAllInformation();
     }
 
     @GetMapping("all-active")
-    public ResponseEntity<List<Information>> getAllInformationActive(){
-        return ResponseEntity.status(HttpStatus.OK).body(informationService.getAllInformationActive());
+    public ResponseEntity<ResponseData<List<Information>>> getAllInformationActive(){
+        return informationService.getAllInformationActive();
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Information> getInformationById(@PathVariable("id") Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(informationService.getInformationById(id));
+    public ResponseEntity<ResponseData<Information>> getInformationById(@PathVariable("id") Long id){
+        return informationService.getInformationById(id);
     }
 
     @PostMapping("create/admin/{id-admin}/nasabah/{id-nasabah}")
-    public ResponseEntity<String> createInformation(@RequestBody Information information, @PathVariable("id-admin")Long idAdmin, @PathVariable("id-nasabah")Long idNasabah){
-        return ResponseEntity.status(HttpStatus.CREATED).body(informationService.createInformation(information, idAdmin,idNasabah));
+    public ResponseEntity<ResponseData<String>> createInformation(@RequestBody Information information, @PathVariable("id-admin")Long idAdmin, @PathVariable("id-nasabah")Long idNasabah){
+        return informationService.createInformation(information, idAdmin,idNasabah);
     }
 
-    @PutMapping("update")
-    public ResponseEntity<String> createInformation(@RequestBody Information information){
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(informationService.updateInformation(information));
+    @PutMapping("update/{id}")
+    public ResponseEntity<ResponseData<String>> createInformation(@PathVariable("id") Long id,
+                                                                  @RequestParam(required = false) String judul,
+                                                                  @RequestParam(required = false) String deskripsi,
+                                                                  @RequestParam(required = false) String penerbit){
+
+        Information information = new Information();
+        information.setPenerbit(penerbit);
+        information.setDeskripsi(deskripsi);
+        information.setJudul(judul);
+        return informationService.updateInformation(id,information);
     }
 
     @DeleteMapping("delete/{id}")
-    public ResponseEntity<String> deleteInformation(@PathVariable("id")Long id){
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(informationService.deleteInformation(id));
+    public ResponseEntity<ResponseData<String>> deleteInformation(@PathVariable("id")Long id){
+        return informationService.deleteInformation(id);
     }
 }
