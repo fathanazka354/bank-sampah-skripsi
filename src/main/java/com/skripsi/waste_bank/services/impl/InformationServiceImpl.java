@@ -30,17 +30,11 @@ public class InformationServiceImpl implements InformationService {
 
     @Override
     public ResponseEntity<ResponseData<List<Information>>> getAllInformation() {
-        if (informationRepository.getAllInformation() == null) {
-            return methodGenericService.extractDataToResponse(null);
-        }
         return methodGenericService.extractDataToResponse(informationRepository.getAllInformation());
     }
 
     @Override
     public ResponseEntity<ResponseData<List<Information>>> getAllInformationActive() {
-        if (informationRepository.getAllInformationActive() == null) {
-            return methodGenericService.extractDataToResponse(null);
-        }
         return methodGenericService.extractDataToResponse(informationRepository.getAllInformationActive());
     }
 

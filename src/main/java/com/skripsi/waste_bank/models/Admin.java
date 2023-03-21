@@ -22,6 +22,7 @@ import java.util.List;
 
 @Getter@Setter@AllArgsConstructor@NoArgsConstructor@Entity@Table(name = "admin_tb")
 public class Admin {
+
     @Id
     @JoinColumn(name = "idAdmin")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,7 +48,7 @@ public class Admin {
     @Column(name = "isActive")
     private boolean isActive = true;
 
-    @OneToMany(mappedBy = "nasabah")
+    @OneToMany(mappedBy = "admin")
     @JsonIgnore
     private List<AmbilTabungan> ambilTabungans;
 

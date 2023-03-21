@@ -16,13 +16,7 @@ public class MethodGenericService {
     Logger logger = LoggerFactory.getLogger(MethodGenericService.class);
     public <T> ResponseEntity extractDataToResponse(List<T> dataList){
         ResponseData responseData = new ResponseData();
-        logger.info(dataList.toString());
-        if (dataList.isEmpty()){
-            responseData.setData(null);
-            responseData.setStatus("Failed");
-            logger.info("Data is empty");
-            return new ResponseEntity(responseData, HttpStatus.NO_CONTENT);
-        }
+
         responseData.setData(dataList);
         responseData.setStatus("Success");
         return new ResponseEntity(responseData, HttpStatus.OK);
