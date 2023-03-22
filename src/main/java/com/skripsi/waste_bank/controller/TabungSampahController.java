@@ -26,36 +26,22 @@ public class TabungSampahController {
         return tabungSampahService.getTabungSampahById(id);
     }
 
-    @GetMapping("nasabah/{id}")
-    public ResponseEntity<ResponseData<List<TabungSampah>>> getTabungSampahByIdNasabah(@PathVariable("id") Long id){
-        return tabungSampahService.getTabungSampahByIdNasabah(id);
-    }
+//    @GetMapping("nasabah/{id}")
+//    public ResponseEntity<ResponseData<List<TabungSampah>>> getTabungSampahByIdNasabah(@PathVariable("id") Long id){
+//        return tabungSampahService.getTabungSampahByIdNasabah(id);
+//    }
 
-    @PostMapping("create/tabung-sampah-detail/{tabung-sampah-detail}/jenis-pengangkutan/{id-jenis-pengangkutan}/admin/{id-admin}/nasabah/{id-nasabah}")
+    @PostMapping("create")
     public ResponseEntity<ResponseData<TabungSampah>> createTabungSampah(
-            @RequestBody TabungSampah tabungSampah,
-            @PathVariable("tabung-sampah-detail")Long idTabungSampahDetail,
-            @PathVariable("id-jenis-pengangkutan")Long idJenisPengangkutan,
-            @PathVariable("id-nasabah")Long idNasabah,
-            @PathVariable("id-admin")Long idAdmin
-    ){
-        return tabungSampahService.createTabungSampah(idTabungSampahDetail, idJenisPengangkutan,idNasabah,idAdmin,tabungSampah);
+            @RequestBody TabungSampah tabungSampah){
+        return tabungSampahService.createTabungSampah(tabungSampah);
     }
 
-    @PutMapping("update/{tabung-sampah}/tabung-sampah-detail/{tabung-sampah-detail}/jenis-pengangkutan/{id-jenis-pengangkutan}/admin/{id-admin}/nasabah/{id-nasabah}")
+    @PutMapping("update/{tabung-sampah}")
     public ResponseEntity<ResponseData<TabungSampah>> updateTabungSampah(
-            @PathVariable("tabung-sampah")Long idTabungSampah,
-            @PathVariable("tabung-sampah-detail")Long idTabungSampahDetail,
-            @PathVariable("id-jenis-pengangkutan")Long idJenisPengangkutan,
-            @PathVariable("id-nasabah")Long idNasabah,
-            @PathVariable("id-admin")Long idAdmin,
-            @RequestParam(required = false) double totalTabungSampah,
-            @RequestParam(required = false) double totalBeratSampah
+            @RequestBody TabungSampah tabungSampah
     ){
-        TabungSampah tabungSampah = new TabungSampah();
-        tabungSampah.setTotalTabungSampah(totalTabungSampah);
-        tabungSampah.setTotalBeratSampah(totalBeratSampah);
-        return tabungSampahService.updateTabungSampah(idTabungSampah,idTabungSampahDetail, idJenisPengangkutan,idNasabah,idAdmin, tabungSampah);
+        return tabungSampahService.updateTabungSampah(tabungSampah);
     }
 
     @DeleteMapping("delete/{id}")

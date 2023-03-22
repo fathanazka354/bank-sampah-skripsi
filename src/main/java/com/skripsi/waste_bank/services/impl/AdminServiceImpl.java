@@ -2,8 +2,10 @@ package com.skripsi.waste_bank.services.impl;
 
 import com.skripsi.waste_bank.dto.ResponseData;
 import com.skripsi.waste_bank.models.Admin;
+import com.skripsi.waste_bank.models.Nasabah;
 import com.skripsi.waste_bank.repository.AdminRepository;
 import com.skripsi.waste_bank.services.AdminService;
+import com.skripsi.waste_bank.utils.MethodGenericService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import java.util.Optional;
 @Service
 public class AdminServiceImpl implements AdminService {
     @Autowired private AdminRepository adminRepository;
+    @Autowired private MethodGenericService methodGenericService;
     Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);
     @Override
     public ResponseEntity<ResponseData<List<Admin>>> getAllAdmin(){
@@ -57,17 +60,16 @@ public class AdminServiceImpl implements AdminService {
     ResponseEntity<ResponseData<Admin>> extractCreateAdmin(Admin admin){
         ResponseData responseData = new ResponseData();
 
-        adminRepository.findAll().stream().map(e->
-                {
-                    if (Objects.equals(e.getEmail(), admin.getEmail()) && Objects.equals(e.getUsername(), admin.getUsername())) {
-                        logger.info("Data admin sudah ada");
-                        responseData.setData(null);
-                        responseData.setStatus("Failed");
-                        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-                    }
-                    return null;
-                }
-                );
+        List<Admin> admins = adminRepository.checkUserExists(admin.getUsername(), admin.getEmail());
+
+
+        if (!admins.isEmpty()){
+            logger.info("Data admin sudah ada");
+            responseData.setData(null);
+            responseData.setStatus("Failed");
+            return new ResponseEntity<>(responseData,HttpStatus.BAD_REQUEST);
+        }
+        adminRepository.saveAndFlush(admin);
         responseData.setData("Data Created");
         responseData.setStatus("Success");
         return new ResponseEntity<>(responseData, HttpStatus.CREATED);
@@ -88,13 +90,13 @@ public class AdminServiceImpl implements AdminService {
             logger.info("Password < 6");
             return new ResponseEntity<>("Password Kurang dari 6 character",HttpStatus.BAD_REQUEST);
         }
-        adminRepository.findAll().stream().map(e->{
-            if (Objects.equals(e.getEmail(), admin.getEmail()) && Objects.equals(e.getUsername(), admin.getUsername())) {
-                logger.info("Data admin sudah ada");
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
-            return null;
-        });
+        List<Admin> admins = adminRepository.checkUserExists(admin.getUsername(), admin.getEmail());
+
+
+        if (!admins.isEmpty()){
+            logger.info("Data admin sudah ada");
+            return new ResponseEntity<>("Data Admin Sudah ada",HttpStatus.BAD_REQUEST);
+        }
         int result = adminRepository.updateAdmin(
                 admin.getUsername() == null ? adminOptional.get().getUsername():admin.getUsername(),
                 admin.getPassword() == null ? adminOptional.get().getPassword():admin.getPassword(),
@@ -111,6 +113,15 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public ResponseEntity<String> deleteAdmin(Long id){
         return extractDeleteAdmin(id);
+    }
+
+    @Override
+    public ResponseEntity<ResponseData<Admin>> login(String username, String email, String password) {
+        List<Admin> login = adminRepository.login(username, email, password);
+        if (!login.isEmpty()){
+            return methodGenericService.extractDataToResponseSingle(true,login.get(0));
+        }
+        return methodGenericService.extractDataToResponseSingle(false,null);
     }
 
     ResponseEntity<String> extractDeleteAdmin(Long id){

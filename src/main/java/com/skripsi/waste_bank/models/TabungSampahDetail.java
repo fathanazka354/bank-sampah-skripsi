@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -24,9 +26,13 @@ public class TabungSampahDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTabungSampahDetail;
 
-    @OneToOne
+    @ManyToOne
     @JsonIgnore
     private TabungSampah tabungSampah;
+
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="id_jenis_sampah",nullable = false)
+    private JenisSampah jenisSampah;
 
     @Value("false")
     @JoinColumn(name = "is_deleted")

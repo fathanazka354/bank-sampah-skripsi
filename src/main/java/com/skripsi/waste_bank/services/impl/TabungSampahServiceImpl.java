@@ -19,67 +19,31 @@ import java.util.Optional;
 @AllArgsConstructor
 public class TabungSampahServiceImpl implements TabungSampahService {
     private TabungSampahRepository tabungSampahRepository;
-    private TabungSampahDetailRepository tabungSampahDetailRepository;
     private NasabahRepository nasabahRepository;
     private AdminRepository adminRepository;
     private MethodGenericService methodGenericService;
     private JenisPengambilanRepository jenisPengambilanRepository;
     @Override
-    public ResponseEntity<ResponseData<TabungSampah>> createTabungSampah(Long idTabungSampahDetail, Long idJenisPengangkutan, Long idNasabah, Long idAdmin,TabungSampah tabungSampah) {
-        if (jenisPengambilanRepository.existsById(idJenisPengangkutan)){
-            return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Data Pengangkut is Empty"),"Data is not Saved");
-        }
-        if (nasabahRepository.existsById(idJenisPengangkutan)){
-            return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Data Nasabah is Empty"),"Data is not Saved");
-        }
-        if (adminRepository.existsById(idAdmin)){
-            return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Data Admin is Empty"),"Data is not Saved");
-        }
-        if (tabungSampahDetailRepository.existsById(idJenisPengangkutan)){
-            return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Data Tabung Sampah Detail is Empty"),"Data is not Saved");
-        }
-
-        TabungSampah tabungSampahObj = new TabungSampah();
-        tabungSampahObj.setTabungSampahDetail(tabungSampahDetailRepository.findById(idTabungSampahDetail).get());
-        tabungSampahObj.setJenisPengangkutan(jenisPengambilanRepository.findById(idJenisPengangkutan).get());
-        tabungSampahObj.setAdmin(adminRepository.findById(idAdmin).get());
-        tabungSampahObj.setNasabah(nasabahRepository.findById(idNasabah).get());
-        tabungSampahObj.setTotalTabungSampah(tabungSampah.getTotalTabungSampah());
-        tabungSampahObj.setTotalBeratSampah(tabungSampah.getTotalBeratSampah());
-        tabungSampahRepository.saveAndFlush(tabungSampahObj);
-
+    public ResponseEntity<ResponseData<TabungSampah>> createTabungSampah(TabungSampah tabungSampah) {
+        tabungSampahRepository.saveAndFlush(tabungSampah);
         return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList(""),"Data Saved");
     }
 
     @Override
-    public ResponseEntity<ResponseData<TabungSampah>> updateTabungSampah(Long idTabungSampah,
-                                                                         Long idTabungSampahDetail,
-                                                                         Long idJenisPengangkutan,
-                                                                         Long idNasabah,
-                                                                         Long idAdmin,
-                                                                         TabungSampah tabungSampah) {
-        if (jenisPengambilanRepository.existsById(idJenisPengangkutan)){
-            return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Data Pengangkut is Empty"),"Data is not Saved");
-        }
-        if (nasabahRepository.existsById(idJenisPengangkutan)){
-            return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Data Nasabah is Empty"),"Data is not Saved");
-        }
-        if (adminRepository.existsById(idAdmin)){
-            return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Data Admin is Empty"),"Data is not Saved");
-        }
-        if (tabungSampahDetailRepository.existsById(idJenisPengangkutan)){
-            return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Data Tabung Sampah Detail is Empty"),"Data is not Saved");
-        }
-        TabungSampah tabungSampahById = tabungSampahRepository.getTabungSampahById(idTabungSampah);
-        TabungSampah tabungSampahObj = new TabungSampah();
-        tabungSampahObj.setTabungSampahDetail(tabungSampahDetailRepository.findById(idTabungSampahDetail).get());
-        tabungSampahObj.setJenisPengangkutan(jenisPengambilanRepository.findById(idJenisPengangkutan).get());
-        tabungSampahObj.setAdmin(adminRepository.findById(idAdmin).get());
-        tabungSampahObj.setNasabah(nasabahRepository.findById(idNasabah).get());
-        tabungSampahObj.setTotalTabungSampah(String.valueOf(tabungSampah.getTotalTabungSampah()) == null ? tabungSampahById.getTotalTabungSampah() : tabungSampah.getTotalTabungSampah());
-        tabungSampahObj.setTotalBeratSampah(String.valueOf(tabungSampah.getTotalBeratSampah()) == null ? tabungSampahById.getTotalBeratSampah() : tabungSampah.getTotalBeratSampah());
+    public ResponseEntity<ResponseData<TabungSampah>> updateTabungSampah(TabungSampah tabungSampah) {
 
-        tabungSampahRepository.saveAndFlush(tabungSampahObj);
+        if (!jenisPengambilanRepository.existsById(tabungSampah.getJenisPengangkutan().getIdJenisPengangkutan())){
+            return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Data Pengangkut is Empty"),"Data is not Updated");
+        }
+        if (!nasabahRepository.existsById(tabungSampah.getNasabah().getIdNasabah())){
+            return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Data Nasabah is Empty"),"Data is not Updated");
+        }
+        if (!adminRepository.existsById(tabungSampah.getAdmin().getIdAdmin())){
+            return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Data Admin is Empty"),"Data is not Updated");
+        }
+
+        tabungSampahRepository.saveAndFlush(tabungSampah);
+
         return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList(""),"Data Updated");
     }
 
@@ -87,7 +51,7 @@ public class TabungSampahServiceImpl implements TabungSampahService {
     public ResponseEntity<ResponseData<String>> deleteTabungSampah(Long id) {
         Optional<TabungSampah> tabungSampahOptional = tabungSampahRepository.findById(id);
         if (tabungSampahOptional.isPresent()) {
-            int result = tabungSampahRepository.deleteTabungSampah();
+            int result = tabungSampahRepository.deleteTabungSampah(id);
             if (result > 0) {
                 return methodGenericService.extractDataToResponseDelete(true);
             }

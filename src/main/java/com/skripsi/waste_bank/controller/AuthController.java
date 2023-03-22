@@ -67,6 +67,13 @@ public class AuthController {
         return adminService.updateAdmin(id, admin);
     }
 
+    @PostMapping("admin/login")
+    public ResponseEntity<ResponseData<Admin>> loginAdmin( @RequestParam(required = false) String username,
+                                                               @RequestParam(required = false) String email,
+                                                               @RequestParam(required = false) String password){
+        return adminService.login(username, email, password);
+    }
+
 
 
 //  nasabah

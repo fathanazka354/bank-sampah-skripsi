@@ -14,4 +14,5 @@ public interface AdminService {
     public ResponseEntity<ResponseData<Admin>> createAdmin(Admin admin);
     public ResponseEntity<String> updateAdmin(Long id, Admin admin);
     public ResponseEntity<String> deleteAdmin(Long id);
+    public ResponseEntity<ResponseData<Admin>> login(String username, String email, String password);
 }

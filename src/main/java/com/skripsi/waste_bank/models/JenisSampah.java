@@ -1,5 +1,6 @@
 package com.skripsi.waste_bank.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.skripsi.waste_bank.utils.Constant;
 import com.skripsi.waste_bank.utils.JenisSampahValue;
 import jakarta.persistence.*;
@@ -32,6 +33,10 @@ public class JenisSampah {
 
     @Column(name = "image_url")
     private String imgUrl = Constant.DEFAULT_URL;
+
+    @JsonIgnore
+    @OneToOne
+    private TabungSampahDetail tabungSampahDetail;
 
     @Value("false")
     @JoinColumn(name = "is_deleted")

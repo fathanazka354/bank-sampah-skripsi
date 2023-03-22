@@ -10,6 +10,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,9 +30,8 @@ public class TabungSampah {
     @JoinColumn(name = "total_berat_sampah")
     private double totalBeratSampah;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_tabung_sampah_detail")
-    private TabungSampahDetail tabungSampahDetail;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<TabungSampahDetail> tabungSampahDetail;
 
     @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_jenis_pengangkutan")

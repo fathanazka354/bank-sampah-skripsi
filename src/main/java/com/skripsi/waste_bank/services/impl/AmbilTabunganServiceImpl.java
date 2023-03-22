@@ -44,19 +44,18 @@ class AmbilTabunganServiceImpl implements AmbilTabunganService {
 
     @Override
     public ResponseEntity<ResponseData<AmbilTabungan>> createTabungan(AmbilTabungan ambilTabungan, Long idNasabah, Long idAdmin) {
-        Optional<Nasabah> stateNasabah = nasabahRepository.findById(idNasabah);
-        if (nasabahRepository.existsById(idNasabah)){
+        if (!nasabahRepository.existsById(idNasabah)){
             return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Data Nasabah is not exist"),"Data is not Saved");
         }
-        if (adminRepository.existsById(idAdmin)){
+        if (!adminRepository.existsById(idAdmin)){
             return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Data Admin is not exist"),"Data is not Saved");
         }
+        Optional<Nasabah> stateNasabah = nasabahRepository.findById(idNasabah);
 
         AmbilTabungan ambilTabunganObj = new AmbilTabungan();
 
         ambilTabunganObj.setNasabah(stateNasabah.get());
         ambilTabunganObj.setSaldoTaked(ambilTabungan.getSaldoTaked());
-        ambilTabunganObj.setNasabah(stateNasabah.get());
         ambilTabunganObj.setAdmin(adminRepository.findById(idAdmin).get());
 
         ambilTabunganRepository.saveAndFlush(ambilTabunganObj);
@@ -64,15 +63,26 @@ class AmbilTabunganServiceImpl implements AmbilTabunganService {
     }
 
     @Override
-    public ResponseEntity<ResponseData<AmbilTabungan>> updateTabungan(AmbilTabungan ambilTabungan, Long idNasabah) {
+    public ResponseEntity<ResponseData<AmbilTabungan>> updateTabungan(AmbilTabungan ambilTabungan, Long idAmbil, Long idNasabah, Long idAdmin) {
         AmbilTabungan ambilTabunganObj = new AmbilTabungan();
 
-        Nasabah nasabah = nasabahRepository.findById(ambilTabungan.getNasabah().getIdNasabah()).get();
+        if (!nasabahRepository.existsById(idNasabah)){
+            return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Data Nasabah is not exist"),"Data is not Saved");
+        }
+        if (!adminRepository.existsById(idAdmin)){
+            return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Data Admin is not exist"),"Data is not Saved");
+        }
+        if (!ambilTabunganRepository.existsById(idAmbil)){
+            return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Data Ambil Tabungan is not exist"),"Data is not Saved");
+        }
+
+        Nasabah nasabah = nasabahRepository.findById(idNasabah).get();
         ambilTabunganObj.setNasabah(nasabah);
+        ambilTabunganObj.setIdAmbilTabungan(idAmbil);
 
         ambilTabunganObj.setSaldoTaked(ambilTabungan.getSaldoTaked());
 
-        Admin admin = ambilTabunganRepository.findById(ambilTabungan.getIdAmbilTabungan()).get().getAdmin();
+        Admin admin = adminRepository.findById(idAdmin).get();
         ambilTabunganObj.setAdmin(admin);
 
         ambilTabunganRepository.saveAndFlush(ambilTabunganObj);
@@ -85,7 +95,7 @@ class AmbilTabunganServiceImpl implements AmbilTabunganService {
         if (stateAmbilTabungan.isEmpty()){
             return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Nasabah is not exists"),"Data is not Delete");
         }
-        var state = ambilTabunganRepository.deleteAmbilTabungan(idAmbilTabungan);
+        int state = ambilTabunganRepository.deleteAmbilTabungan(idAmbilTabungan);
         if (state == 0){
             return methodGenericService.extractDataToResponseDelete(false);
         }

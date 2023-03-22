@@ -9,14 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public interface TabungSampahService {
-    ResponseEntity<ResponseData<TabungSampah>> createTabungSampah(Long idTabungSampahDetail, Long idJenisPengangkutan, Long idNasabah, Long idAdmin,
-                                                                  TabungSampah tabungSampah );
-    ResponseEntity<ResponseData<TabungSampah>> updateTabungSampah(Long idTabungSampah,
-                                                                  Long idTabungSampahDetail,
-                                                                  Long idJenisPengangkutan,
-                                                                  Long idNasabah,
-                                                                  Long idAdmin,
-                                                                  TabungSampah tabungSampah );
+    ResponseEntity<ResponseData<TabungSampah>> createTabungSampah(TabungSampah tabungSampah );
+    ResponseEntity<ResponseData<TabungSampah>> updateTabungSampah(
+            TabungSampah tabungSampah );
     ResponseEntity<ResponseData<String>> deleteTabungSampah(Long id);
     ResponseEntity<ResponseData<List<TabungSampah>>> getAllTabungSampah();
     ResponseEntity<ResponseData<TabungSampah>> getTabungSampahById(Long id);

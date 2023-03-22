@@ -30,26 +30,23 @@ class AmbilTabunganController {
     }
 
     @PostMapping("create/admin/{id-admin}/nasabah/{id-nasabah}")
-    public ResponseEntity<ResponseData<AmbilTabungan>> createAmbilTabungan(@RequestBody AmbilTabungan ambilTabungan,
+    public ResponseEntity<ResponseData<AmbilTabungan>> createAmbilTabungan(
+                                                                            @RequestParam(required = false) double saldoTaked,
                                                                            @PathVariable("id-admin")Long idAdmin,
                                                                            @PathVariable("id-nasabah")Long idNasabah){
+        AmbilTabungan ambilTabungan = new AmbilTabungan();
+        ambilTabungan.setSaldoTaked(saldoTaked);
         return ambilTabunganService.createTabungan(ambilTabungan,idNasabah, idAdmin);
     }
 
-    @PutMapping("update/{id}")
+    @PutMapping("update/{id}/admin/{id-admin}/nasabah/{id-nasabah}")
     public ResponseEntity<ResponseData<AmbilTabungan>> updateAmbilTabungan(@PathVariable("id") Long id,
-                                                                           @RequestParam(required = false) double saldoTaked,
-                                                                           @RequestParam(required = false) MultipartFile file){
+                                                                           @PathVariable("id-admin")Long idAdmin,
+                                                                           @PathVariable("id-nasabah")Long idNasabah,
+                                                                           @RequestParam(required = false) double saldoTaked){
         AmbilTabungan ambilTabungan = new AmbilTabungan();
-        String url = "";
-        if (file != null){
-            url = sendImageService.uploadImage(file);
-        }else {
-            url = Constant.DEFAULT_URL;
-        }
         ambilTabungan.setSaldoTaked(saldoTaked);
-        ambilTabungan.setImgUrl(url);
-        return ambilTabunganService.updateTabungan(ambilTabungan, id);
+        return ambilTabunganService.updateTabungan(ambilTabungan, id,idAdmin,idNasabah);
     }
 
     @DeleteMapping("delete/{id}")

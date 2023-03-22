@@ -29,9 +29,6 @@ public class AmbilTabungan {
     @JoinColumn(name = "saldo_taked")
     private double saldoTaked;
 
-    @JoinColumn(name = "img_url")
-    private String imgUrl;
-
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_user")
     private Nasabah nasabah;
