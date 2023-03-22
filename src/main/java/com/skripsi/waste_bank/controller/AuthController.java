@@ -45,7 +45,7 @@ public class AuthController {
     }
 
     @PutMapping("admin/update/{id}")
-    public ResponseEntity<String> updateAdmin(@PathVariable("id")Long id,
+    public ResponseEntity<ResponseData<String>> updateAdmin(@PathVariable("id")Long id,
                                              @RequestParam(required = false) String username,
                                              @RequestParam(required = false) String email,
                                              @RequestParam(required = false) String password,
@@ -55,8 +55,6 @@ public class AuthController {
         String url = "";
         if (file != null){
             url = sendImageService.uploadImage(file);
-        }else {
-            url = Constant.DEFAULT_URL;
         }
 
         admin.setPassword(password);
@@ -72,6 +70,11 @@ public class AuthController {
                                                                @RequestParam(required = false) String email,
                                                                @RequestParam(required = false) String password){
         return adminService.login(username, email, password);
+    }
+
+    @DeleteMapping("admin/delete/{id}")
+    public ResponseEntity<ResponseData<String>> deleteAdminById(@PathVariable("id") Long id){
+        return adminService.deleteAdmin(id);
     }
 
 
@@ -111,8 +114,6 @@ public class AuthController {
         String url = "";
         if (file != null){
             url = sendImageService.uploadImage(file);
-        }else {
-            url = Constant.DEFAULT_URL;
         }
 
         nasabah.setPassword(password);

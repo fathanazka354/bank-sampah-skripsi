@@ -7,7 +7,6 @@ import com.skripsi.waste_bank.services.NasabahService;
 import com.skripsi.waste_bank.utils.EmailValidation;
 import com.skripsi.waste_bank.utils.MethodGenericService;
 import lombok.AllArgsConstructor;
-import org.hibernate.validator.internal.constraintvalidators.bv.EmailValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.regex.Pattern;
 
 @Service
 @AllArgsConstructor
@@ -52,7 +50,6 @@ public class NasabahServiceImpl implements NasabahService {
 
     @Override
     public ResponseEntity<ResponseData<Nasabah>> updateNasabahById(Long id, Nasabah nasabah) {
-        Optional<Nasabah> nasabahById = nasabahRepository.findById(id);
 
         if (!nasabahRepository.existsById(id)) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -60,15 +57,19 @@ public class NasabahServiceImpl implements NasabahService {
         if (nasabah.getPassword() != null && nasabah.getPassword().length() < 6){
             return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Password kurang dari 6 character"),null);
         }
-        var email = emailValidation.emailValidation(nasabah.getEmail());
-        if (email == null){
-            return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Value harus berisi email"),null);
+        if (nasabah.getEmail() != null){
+            var email = emailValidation.emailValidation(nasabah.getEmail());
+            if (email == null){
+                return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Value harus berisi email"),null);
+            }
         }
+        Optional<Nasabah> nasabahById = nasabahRepository.findById(id);
+        System.out.println(nasabahById.get().getImgUrl());
         int result = nasabahRepository.updateNasabah(
                 nasabah.getUsername() == null ? nasabahById.get().getUsername():nasabah.getUsername(),
                 nasabah.getPassword() == null ? nasabahById.get().getPassword():nasabah.getPassword(),
                 nasabah.getEmail() == null ? nasabahById.get().getEmail():nasabah.getEmail(),
-                nasabah.getImgUrl() == null ? nasabahById.get().getImgUrl():nasabah.getImgUrl(),
+                Objects.equals(nasabah.getImgUrl(), "") ? nasabahById.get().getImgUrl():nasabah.getImgUrl(),
                 nasabah.getAddress() == null ? nasabahById.get().getAddress():nasabah.getAddress(),
                 nasabahById.get().getIdNasabah());
         if (result > 0){
@@ -80,14 +81,13 @@ public class NasabahServiceImpl implements NasabahService {
     @Override
     public ResponseEntity<ResponseData<Nasabah>> createNasabah(Nasabah nasabah) {
 
-        nasabahRepository.findAll().stream().map(e->
-                {
-                    if (Objects.equals(e.getEmail(), nasabah.getEmail()) || Objects.equals(e.getUsername(), nasabah.getUsername())) {
-                        return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Email Dan/ Username Sudah terpakai"),"Data cannot saved");
-                    }
-                    return null;
-                }
-        );
+        List<Nasabah> admins = nasabahRepository.checkUserExists(nasabah.getUsername(), nasabah.getEmail());
+
+
+        if (!admins.isEmpty()){
+            return  methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Username / Email Sudah dipakai"),"Data is Not Saved");
+        }
+
         nasabahRepository.saveAndFlush(nasabah);
         return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList(""),"Data Saved");
     }
@@ -95,7 +95,7 @@ public class NasabahServiceImpl implements NasabahService {
     @Override
     public ResponseEntity<ResponseData<Nasabah>> login(String username, String email, String password) {
         List<Nasabah> data = nasabahRepository.login(username, email, password);
-        if (data.size() == 0){
+        if (data.isEmpty()){
             return methodGenericService.extractDataToResponseSingle(false, null);
         }
         return methodGenericService.extractDataToResponseSingle(true, data.get(0));

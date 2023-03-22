@@ -12,7 +12,7 @@ public interface AdminService {
     public ResponseEntity<ResponseData<List<Admin>>> getAllAdmin();
     public ResponseEntity<ResponseData<Admin>> getAdminById(Long id);
     public ResponseEntity<ResponseData<Admin>> createAdmin(Admin admin);
-    public ResponseEntity<String> updateAdmin(Long id, Admin admin);
-    public ResponseEntity<String> deleteAdmin(Long id);
+    public ResponseEntity<ResponseData<String>> updateAdmin(Long id, Admin admin);
+    public ResponseEntity<ResponseData<String>> deleteAdmin(Long id);
     public ResponseEntity<ResponseData<Admin>> login(String username, String email, String password);
 }

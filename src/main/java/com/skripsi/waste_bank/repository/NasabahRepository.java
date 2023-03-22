@@ -20,6 +20,9 @@ public interface NasabahRepository extends JpaRepository<Nasabah, Long> {
     @Query("UPDATE Nasabah a SET a.username = :username, a.password = :password, a.email = :email, a.address = :address, a.imgUrl = :imgUrl WHERE a.idNasabah = :idNasabah")
     int updateNasabah(@Param("username")String username, @Param("password") String password, @Param("email") String email, @Param("imgUrl") String imgUrl, @Param("address")String address, @Param("idNasabah") Long idNasabah);
 
+    @Query("SELECT a FROM Nasabah a WHERE a.username = :username AND a.email = :email")
+    List<Nasabah> checkUserExists(@Param("username") String username, @Param("email") String email);
+
     @Query("SELECT n FROM Nasabah n WHERE (n.username = :username AND n.password = :password) OR (n.email = :email AND n.password = :password)")
     List<Nasabah> login(@Param("username") String username, @Param("email") String email, @Param("password") String password);
 }

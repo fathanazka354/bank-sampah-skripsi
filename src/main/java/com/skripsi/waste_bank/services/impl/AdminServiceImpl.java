@@ -2,7 +2,6 @@ package com.skripsi.waste_bank.services.impl;
 
 import com.skripsi.waste_bank.dto.ResponseData;
 import com.skripsi.waste_bank.models.Admin;
-import com.skripsi.waste_bank.models.Nasabah;
 import com.skripsi.waste_bank.repository.AdminRepository;
 import com.skripsi.waste_bank.services.AdminService;
 import com.skripsi.waste_bank.utils.MethodGenericService;
@@ -13,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -28,56 +28,59 @@ public class AdminServiceImpl implements AdminService {
     }
 
     ResponseEntity<ResponseData<List<Admin>>> extractGetAllAdmin(){
-        ResponseData responseData = new ResponseData();
-        responseData.setData(adminRepository.findAll());
-        responseData.setStatus("Success");
-        return new ResponseEntity(responseData, HttpStatus.OK);
+        return methodGenericService.extractDataToResponse(adminRepository.findAll());
     }
     @Override
     public ResponseEntity<ResponseData<Admin>> getAdminById(Long id){
-        return extractGetAdminById(id);
-    }
-
-    ResponseEntity<ResponseData<Admin>> extractGetAdminById(Long id){
-        ResponseData responseData = new ResponseData();
-
-        if (adminRepository.findAll().isEmpty()){
-            logger.info("Admin is empty");
-            responseData.setData(null);
-            responseData.setStatus("Failed");
-            return new ResponseEntity(responseData,HttpStatus.NO_CONTENT);
+        if (adminRepository.existsById(id)){
+            return methodGenericService.extractDataToResponseSingle(false, null);
         }
-        responseData.setData(adminRepository.findById(id).get());
-        responseData.setStatus("Success");
-        return new ResponseEntity(responseData, HttpStatus.OK);
+        return methodGenericService.extractDataToResponseSingle(true, adminRepository.findById(id).get());
     }
 
     @Override
     public ResponseEntity<ResponseData<Admin>> createAdmin(Admin admin){
-        return extractCreateAdmin(admin);
-    }
-
-    ResponseEntity<ResponseData<Admin>> extractCreateAdmin(Admin admin){
-        ResponseData responseData = new ResponseData();
-
         List<Admin> admins = adminRepository.checkUserExists(admin.getUsername(), admin.getEmail());
 
 
         if (!admins.isEmpty()){
             logger.info("Data admin sudah ada");
-            responseData.setData(null);
-            responseData.setStatus("Failed");
-            return new ResponseEntity<>(responseData,HttpStatus.BAD_REQUEST);
+            return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Username/Email Usdah terpakai"),"Data is not Created");
         }
+
         adminRepository.saveAndFlush(admin);
-        responseData.setData("Data Created");
-        responseData.setStatus("Success");
-        return new ResponseEntity<>(responseData, HttpStatus.CREATED);
+        return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList(""),"Data Created");
     }
 
     @Override
-    public ResponseEntity<String> updateAdmin(Long id, Admin admin) {
-        return extractUpdateAdmin(id, admin);
+    public ResponseEntity<ResponseData<String>> updateAdmin(Long id, Admin admin) {
+        Optional<Admin> adminOptional  = adminRepository.findById(id);
+        if (adminOptional.isEmpty()) {
+            logger.info("Data admin tidak ditemukan");
+            return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Data Admin tidak ditemukan"), "Data is not Updated");
+        }
+        if (admin.getPassword() != null && admin.getPassword().length() < 6){
+            logger.info("Password < 6");
+            return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Password kurang dari 6 character"), "Data is not Updated");
+        }
+        List<Admin> admins = adminRepository.checkUserExists(admin.getUsername(), admin.getEmail());
+
+
+        if (!admins.isEmpty()){
+            logger.info("Data admin sudah ada");
+            return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Data username/email sudah terpakai"), "Data is not Updated");
+        }
+        int result = adminRepository.updateAdmin(
+                admin.getUsername() == null ? adminOptional.get().getUsername():admin.getUsername(),
+                admin.getPassword() == null ? adminOptional.get().getPassword():admin.getPassword(),
+                admin.getEmail() == null ? adminOptional.get().getEmail():admin.getEmail(),
+                Objects.equals(admin.getImgUrl(), "") ? adminOptional.get().getImgUrl():admin.getImgUrl(),
+                adminOptional.get().getIdAdmin());
+        logger.info("Data Updated {}",result);
+        if (result > 0){
+            return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList(""), "Data Updated");
+        }
+        return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Data failed to update"), "Data is not Updated");
     }
 
     ResponseEntity<String> extractUpdateAdmin(Long id, Admin admin){
@@ -101,7 +104,7 @@ public class AdminServiceImpl implements AdminService {
                 admin.getUsername() == null ? adminOptional.get().getUsername():admin.getUsername(),
                 admin.getPassword() == null ? adminOptional.get().getPassword():admin.getPassword(),
                 admin.getEmail() == null ? adminOptional.get().getEmail():admin.getEmail(),
-                admin.getImgUrl() == null ? adminOptional.get().getImgUrl():admin.getImgUrl(),
+                Objects.equals(admin.getImgUrl(), "") ? adminOptional.get().getImgUrl():admin.getImgUrl(),
                 adminOptional.get().getIdAdmin());
         logger.info("Data Updated {}",result);
         if (result > 0){
@@ -111,8 +114,16 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public ResponseEntity<String> deleteAdmin(Long id){
-        return extractDeleteAdmin(id);
+    public ResponseEntity<ResponseData<String>> deleteAdmin(Long id){
+        if (adminRepository.existsById(id)) {
+            logger.info("Data admin tidak ada");
+            return methodGenericService.extractDataToResponseDelete(false);
+        }
+        var result = adminRepository.deleteAdmin(id);
+        if (result > 0){
+            return methodGenericService.extractDataToResponseDelete(true);
+        }
+        return methodGenericService.extractDataToResponseDelete(false);
     }
 
     @Override
@@ -122,17 +133,6 @@ public class AdminServiceImpl implements AdminService {
             return methodGenericService.extractDataToResponseSingle(true,login.get(0));
         }
         return methodGenericService.extractDataToResponseSingle(false,null);
-    }
-
-    ResponseEntity<String> extractDeleteAdmin(Long id){
-        Optional<Admin> admin  = adminRepository.findById(id);
-
-        if (admin.isEmpty()) {
-            logger.info("Data admin tidak ada");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        adminRepository.deleteAdmin(admin.get().getIdAdmin());
-        return new ResponseEntity<>("Admin deleted", HttpStatus.NOT_FOUND);
     }
 
 }
