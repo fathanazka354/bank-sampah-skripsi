@@ -11,9 +11,11 @@ import org.springframework.beans.factory.annotation.Value;
 @Getter
 @Setter
 public class NasabahDTO {
-    @JoinColumn(name = "username")
     @NotBlank(message = "Value Not blank")
-    private String username;
+    private String firstName;
+
+    @NotBlank(message = "Value Not blank")
+    private String lastName;
 
     @JoinColumn(name = "email")
     @Email(message = "Value Must Email")

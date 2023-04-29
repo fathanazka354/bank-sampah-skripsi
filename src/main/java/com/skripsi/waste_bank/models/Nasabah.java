@@ -2,20 +2,22 @@ package com.skripsi.waste_bank.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.skripsi.waste_bank.utils.Constant;
+import com.skripsi.waste_bank.utils.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -24,16 +26,21 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 @Table(name = "nasabah_tb")
-public class Nasabah {
+public class Nasabah implements UserDetails {
     @Id
     @JoinColumn(name = "id_nasabah")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idNasabah;
 
-    @Column(name = "username", unique = true)
-    @NotBlank(message = "Username can Not blank")
-    private String username;
+    @Column(name = "first_name")
+    @NotBlank(message = "first name can Not blank")
+    private String firstName;
+
+    @Column(name = "last_name")
+    @NotBlank(message = "last name can Not blank")
+    private String lastName;
 
     @Column(name = "email", unique = true)
     @Email(message = "Value Must Email")
@@ -56,6 +63,9 @@ public class Nasabah {
     @JoinColumn(name = "is_deleted")
     private boolean isDeleted;
 
+    @JoinColumn(name = "role")
+    private Role role;
+
     @OneToMany(mappedBy = "nasabah")
     @JsonIgnore
     private List<Information> information;
@@ -71,4 +81,34 @@ public class Nasabah {
     @UpdateTimestamp
     @JoinColumn(name = "updated_at")
     private Date updatedAt;
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

@@ -1,7 +1,9 @@
 package com.skripsi.waste_bank.controller;
 
 import com.skripsi.waste_bank.dto.NasabahDTO;
+import com.skripsi.waste_bank.dto.RegisterRequest;
 import com.skripsi.waste_bank.dto.ResponseData;
+import com.skripsi.waste_bank.dto.ResponseToken;
 import com.skripsi.waste_bank.models.Admin;
 import com.skripsi.waste_bank.models.Nasabah;
 import com.skripsi.waste_bank.services.AdminService;
@@ -39,14 +41,15 @@ public class AuthController {
         return adminService.getAdminById(id);
     }
 
-    @PostMapping("admin/create")
-    public ResponseEntity<ResponseData<Admin>> createAdmin(@RequestBody Admin admin){
+    @PostMapping("admin/register")
+    public ResponseEntity<ResponseData<Admin>> createAdmin(@RequestBody RegisterRequest admin){
         return adminService.createAdmin(admin);
     }
 
     @PutMapping("admin/update/{id}")
-    public ResponseEntity<ResponseData<String>> updateAdmin(@PathVariable("id")Long id,
-                                             @RequestParam(required = false) String username,
+    public ResponseEntity<ResponseData<ResponseToken>> updateAdmin(@PathVariable("id")Long id,
+                                             @RequestParam(required = false) String firstName,
+                                             @RequestParam(required = false) String lastName,
                                              @RequestParam(required = false) String email,
                                              @RequestParam(required = false) String password,
                                              @RequestParam(required = false) MultipartFile file) {
@@ -58,7 +61,8 @@ public class AuthController {
         }
 
         admin.setPassword(password);
-        admin.setUsername(username);
+        admin.setFirstName(firstName);
+        admin.setLastName(lastName);
         admin.setEmail(email);
         admin.setImgUrl(url);
 
@@ -66,9 +70,9 @@ public class AuthController {
     }
 
     @PostMapping("admin/login")
-    public ResponseEntity<ResponseData<Admin>> loginAdmin( @RequestParam(required = false) String username,
-                                                               @RequestParam(required = false) String email,
-                                                               @RequestParam(required = false) String password){
+    public ResponseEntity<ResponseData<ResponseToken>> loginAdmin(@RequestParam(required = false) String username,
+                                                                  @RequestParam(required = false) String email,
+                                                                  @RequestParam(required = false) String password){
         return adminService.login(username, email, password);
     }
 
@@ -91,21 +95,22 @@ public class AuthController {
     }
 
     @PostMapping("nasabah/login")
-    public ResponseEntity<ResponseData<Nasabah>> loginNasabah( @RequestParam(required = false) String username,
+    public ResponseEntity<ResponseData<ResponseToken>> loginNasabah(
                                                                @RequestParam(required = false) String email,
                                                                @RequestParam(required = false) String password){
-        return nasabahService.login(username, email, password);
+        return nasabahService.login( email, password);
     }
 
-    @PostMapping("nasabah/create")
+    @PostMapping("nasabah/register")
     public ResponseEntity<ResponseData<Nasabah>> createNasabah(@RequestBody NasabahDTO nasabahDto){
-        Nasabah nasabah = modelMapper.map(nasabahDto, Nasabah.class);
-        return nasabahService.createNasabah(nasabah);
+//        Nasabah nasabah = modelMapper.map(nasabahDto, Nasabah.class);
+        return nasabahService.createNasabah(nasabahDto);
     }
 
     @PutMapping("nasabah/update/{id}")
     public ResponseEntity<ResponseData<Nasabah>> updateNasabah(@PathVariable("id") Long id,
-                                                               @RequestParam(required = false) String username,
+                                                               @RequestParam(required = false) String firstName,
+                                                               @RequestParam(required = false) String lastName,
                                                                @RequestParam(required = false) String email,
                                                                @RequestParam(required = false) String password,
                                                                @RequestParam(required = false) String address,
@@ -117,7 +122,8 @@ public class AuthController {
         }
 
         nasabah.setPassword(password);
-        nasabah.setUsername(username);
+        nasabah.setFirstName(firstName);
+        nasabah.setLastName(lastName);
         nasabah.setEmail(email);
         nasabah.setAddress(address);
         nasabah.setImgUrl(url);

@@ -38,7 +38,7 @@ public class MethodGenericService {
     public <T> ResponseEntity<ResponseData<T>> extractDataToResponseSingleCreateUpdate(List<String> message,String data){
         ResponseData responseData = new ResponseData();
         if (!Objects.equals(message.get(0), "")){
-            responseData.setData(data);
+            responseData.setData("");
             responseData.setMessage(message);
             responseData.setStatus("Failed");
             return new ResponseEntity(responseData, HttpStatus.BAD_REQUEST);

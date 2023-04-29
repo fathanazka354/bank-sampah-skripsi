@@ -30,6 +30,7 @@ public class Information {
     @JoinColumn(name = "id_nasabah")
     private Nasabah nasabah;
 
+
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_admin")
     private Admin admin;

@@ -3,36 +3,41 @@ package com.skripsi.waste_bank.models;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.skripsi.waste_bank.utils.Constant;
+import com.skripsi.waste_bank.utils.Role;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-@Getter@Setter@AllArgsConstructor@NoArgsConstructor@Entity@Table(name = "admin_tb")
-public class Admin {
+@Getter@Setter@AllArgsConstructor@NoArgsConstructor@Entity@Table(name = "admin_tb")@Builder
+public class Admin implements UserDetails {
 
     @Id
     @JoinColumn(name = "idAdmin")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAdmin;
 
-    @NotBlank(message = "Username must be filled")
-    @Column(name = "username",unique = true)
-    @Size(min = 5,message = "Size char must be more 5")
-    private String username;
+    @NotBlank(message = "first name must be filled")
+    @Column(name = "firstName")
+    private String firstName;
+
+    @NotBlank(message = "last name must be filled")
+    @Column(name = "lastName")
+    private String lastName;
 
     @Email(message = "Value must be Email")
     @NotBlank(message = "Email cannot null")
@@ -49,6 +54,9 @@ public class Admin {
     @Column(name = "isActive")
     private boolean isActive = true;
 
+    @Column(name="role")
+    private Role role;
+
     @OneToMany(mappedBy = "admin")
     @JsonIgnore
     private List<AmbilTabungan> ambilTabungans;
@@ -60,4 +68,34 @@ public class Admin {
     @UpdateTimestamp
     @JoinColumn(name = "updated_at")
     private Date updatedAt;
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

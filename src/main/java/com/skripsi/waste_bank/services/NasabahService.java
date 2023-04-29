@@ -1,6 +1,8 @@
 package com.skripsi.waste_bank.services;
 
+import com.skripsi.waste_bank.dto.NasabahDTO;
 import com.skripsi.waste_bank.dto.ResponseData;
+import com.skripsi.waste_bank.dto.ResponseToken;
 import com.skripsi.waste_bank.models.Nasabah;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,6 @@ public interface NasabahService {
     ResponseEntity<ResponseData<Nasabah>> getNasabahById(Long id);
     ResponseEntity<ResponseData<String>> deleteNasabahById(Long id);
     ResponseEntity<ResponseData<Nasabah>> updateNasabahById(Long id, Nasabah nasabah);
-    ResponseEntity<ResponseData<Nasabah>> createNasabah(Nasabah nasabah);
-    ResponseEntity<ResponseData<Nasabah>> login(String username,String email, String password);
+    ResponseEntity<ResponseData<Nasabah>> createNasabah(NasabahDTO nasabah);
+    ResponseEntity<ResponseData<ResponseToken>> login( String email, String password);
 }

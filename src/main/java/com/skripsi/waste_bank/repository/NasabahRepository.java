@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface NasabahRepository extends JpaRepository<Nasabah, Long> {
     @Transactional
@@ -17,12 +18,14 @@ public interface NasabahRepository extends JpaRepository<Nasabah, Long> {
 
     @Modifying
     @Transactional
-    @Query("UPDATE Nasabah a SET a.username = :username, a.password = :password, a.email = :email, a.address = :address, a.imgUrl = :imgUrl WHERE a.idNasabah = :idNasabah")
-    int updateNasabah(@Param("username")String username, @Param("password") String password, @Param("email") String email, @Param("imgUrl") String imgUrl, @Param("address")String address, @Param("idNasabah") Long idNasabah);
+    @Query("UPDATE Nasabah a SET a.firstName = :firstName,a.lastName = :lastName, a.password = :password, a.email = :email, a.address = :address, a.imgUrl = :imgUrl WHERE a.idNasabah = :idNasabah")
+    int updateNasabah(@Param("firstName")String firstName,@Param("lastName")String lastName, @Param("password") String password, @Param("email") String email, @Param("imgUrl") String imgUrl, @Param("address")String address, @Param("idNasabah") Long idNasabah);
 
-    @Query("SELECT a FROM Nasabah a WHERE a.username = :username AND a.email = :email")
-    List<Nasabah> checkUserExists(@Param("username") String username, @Param("email") String email);
+    @Query("SELECT a FROM Nasabah a WHERE  a.email = :email")
+    List<Nasabah> checkUserExists(@Param("email") String email);
 
-    @Query("SELECT n FROM Nasabah n WHERE (n.username = :username AND n.password = :password) OR (n.email = :email AND n.password = :password)")
-    List<Nasabah> login(@Param("username") String username, @Param("email") String email, @Param("password") String password);
+    Optional<Nasabah> findByEmail(String email);
+
+//    @Query("SELECT n FROM Nasabah n WHERE (n.firstName = :firstName AND n.password = :password) OR (n.email = :email AND n.password = :password)")
+//    List<Nasabah> login(@Param("firstName") String firstName, @Param("email") String email, @Param("password") String password);
 }
