@@ -1,9 +1,6 @@
 package com.skripsi.waste_bank.controller;
 
-import com.skripsi.waste_bank.dto.NasabahDTO;
-import com.skripsi.waste_bank.dto.RegisterRequest;
-import com.skripsi.waste_bank.dto.ResponseData;
-import com.skripsi.waste_bank.dto.ResponseToken;
+import com.skripsi.waste_bank.dto.*;
 import com.skripsi.waste_bank.models.Admin;
 import com.skripsi.waste_bank.models.Nasabah;
 import com.skripsi.waste_bank.services.AdminService;
@@ -41,6 +38,11 @@ public class AuthController {
         return adminService.getAdminById(id);
     }
 
+    @GetMapping("admin/email")
+    public ResponseEntity<ResponseData<Admin>> getAdminByEmail(@RequestParam("email") String email){
+        return adminService.findByEmail(email);
+    }
+
     @PostMapping("admin/register")
     public ResponseEntity<ResponseData<Admin>> createAdmin(@RequestBody RegisterRequest admin){
         return adminService.createAdmin(admin);
@@ -70,17 +72,17 @@ public class AuthController {
     }
 
     @PostMapping("admin/login")
-    public ResponseEntity<ResponseData<ResponseToken>> loginAdmin(@RequestParam(required = false) String username,
-                                                                  @RequestParam(required = false) String email,
-                                                                  @RequestParam(required = false) String password){
+    public ResponseEntity<ResponseData<AuthenticationResponse>> loginAdmin(@RequestParam(required = false) String username,
+                                                                           @RequestParam(required = false) String email,
+                                                                           @RequestParam(required = false) String password){
         return adminService.login(username, email, password);
     }
+
 
     @DeleteMapping("admin/delete/{id}")
     public ResponseEntity<ResponseData<String>> deleteAdminById(@PathVariable("id") Long id){
         return adminService.deleteAdmin(id);
     }
-
 
 
 //  nasabah
@@ -93,9 +95,13 @@ public class AuthController {
     public ResponseEntity<ResponseData<Nasabah>> getNasabahById(@PathVariable("id") Long id){
         return nasabahService.getNasabahById(id);
     }
+    @GetMapping("nasabah/email")
+    public ResponseEntity<ResponseData<Nasabah>> getNasabahByEmail(@RequestParam("email") String email){
+        return nasabahService.getByEmail(email);
+    }
 
     @PostMapping("nasabah/login")
-    public ResponseEntity<ResponseData<ResponseToken>> loginNasabah(
+    public ResponseEntity<ResponseData<AuthenticationResponse>> loginNasabah(
                                                                @RequestParam(required = false) String email,
                                                                @RequestParam(required = false) String password){
         return nasabahService.login( email, password);

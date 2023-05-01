@@ -1,6 +1,7 @@
 package com.skripsi.waste_bank.services.impl;
 
 import com.skripsi.waste_bank.configuration.JwtService;
+import com.skripsi.waste_bank.dto.AuthenticationResponse;
 import com.skripsi.waste_bank.dto.NasabahDTO;
 import com.skripsi.waste_bank.dto.ResponseData;
 import com.skripsi.waste_bank.dto.ResponseToken;
@@ -115,7 +116,7 @@ public class NasabahServiceImpl implements NasabahService {
     }
 
     @Override
-    public ResponseEntity<ResponseData<ResponseToken>> login(String email, String password) {
+    public ResponseEntity<ResponseData<AuthenticationResponse>> login(String email, String password) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         email,
@@ -124,11 +125,17 @@ public class NasabahServiceImpl implements NasabahService {
         );
         var user = nasabahRepository.findByEmail(email).orElseThrow();
         var jwt =jwtService.generateToken(user);
-        var response = ResponseToken.builder().token(jwt).build();
-//        List<Nasabah> data = nasabahRepository.login(username, email, password);
-//        if (data.isEmpty()){
-//            return methodGenericService.extractDataToResponseSingle(false, null);
-//        }
+        var response = AuthenticationResponse.builder().email(email).token(jwt).build();
         return methodGenericService.extractDataToResponseSingle(true, response);
+    }
+
+    @Override
+    public ResponseEntity<ResponseData<Nasabah>> getByEmail(String email) {
+        Optional<Nasabah> byEmail = nasabahRepository.findByEmail(email);
+        if (byEmail.isEmpty()){
+            return methodGenericService.extractDataToResponseSingle(false,null);
+        }
+
+        return methodGenericService.extractDataToResponseSingle(true,byEmail.get());
     }
 }

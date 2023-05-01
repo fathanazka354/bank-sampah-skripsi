@@ -1,6 +1,7 @@
 package com.skripsi.waste_bank.services.impl;
 
 import com.skripsi.waste_bank.configuration.JwtService;
+import com.skripsi.waste_bank.dto.AuthenticationResponse;
 import com.skripsi.waste_bank.dto.RegisterRequest;
 import com.skripsi.waste_bank.dto.ResponseData;
 import com.skripsi.waste_bank.dto.ResponseToken;
@@ -90,15 +91,6 @@ public class AdminServiceImpl implements AdminService {
                 Objects.equals(admin.getImgUrl(), "") ? adminOptional.get().getImgUrl():admin.getImgUrl(),
                 adminOptional.get().getIdAdmin());
         logger.info("Data Updated {}",admin.getEmail());
-//        authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(
-//                        admin.getEmail(),
-//                        admin.getPassword()
-//                )
-//        );
-//        var user = adminRepository.findByEmail(admin.getEmail()).orElseThrow();
-//        var jwt = jwtService.generateToken(user);
-//        var response = ResponseToken.builder().token(jwt).build();
         if (result > 0){
             return methodGenericService.extractDataToResponseSingleCreateUpdate(List.of(""), "Data successfully to update");
         }
@@ -119,7 +111,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public ResponseEntity<ResponseData<ResponseToken>> login(String username, String email, String password) {
+    public ResponseEntity<ResponseData<AuthenticationResponse>> login(String username, String email, String password) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         email,
@@ -128,12 +120,17 @@ public class AdminServiceImpl implements AdminService {
         );
         var user = adminRepository.findByEmail(email).orElseThrow();
         var jwt = jwtService.generateToken(user);
-        var response = ResponseToken.builder().token(jwt).build();
-//        List<Admin> login = adminRepository.login(username, email, (password));
+        var response = AuthenticationResponse.builder().email(email).token(jwt).build();
             return methodGenericService.extractDataToResponseSingle(true,response);
-//        if (!login.isEmpty()){
-//        }
-//        return methodGenericService.extractDataToResponseSingle(false,null);
+    }
+
+    @Override
+    public ResponseEntity<ResponseData<Admin>> findByEmail(String email) {
+        Optional<Admin> byEmail = adminRepository.findByEmail(email);
+        if (byEmail.isEmpty()){
+            return methodGenericService.extractDataToResponseSingle(false, null);
+        }
+        return methodGenericService.extractDataToResponseSingle(true, byEmail.get());
     }
 
 }

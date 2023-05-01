@@ -23,6 +23,7 @@ public interface AdminRepository extends JpaRepository<Admin, Long> {
 
     Optional<Admin> findByEmail(String email);
 
+
     @Query("SELECT a FROM Admin a WHERE a.email = :email")
     List<Admin> checkUserExists( @Param("email") String email);
 

@@ -1,5 +1,6 @@
 package com.skripsi.waste_bank.services;
 
+import com.skripsi.waste_bank.dto.AuthenticationResponse;
 import com.skripsi.waste_bank.dto.RegisterRequest;
 import com.skripsi.waste_bank.dto.ResponseData;
 import com.skripsi.waste_bank.dto.ResponseToken;
@@ -16,5 +17,6 @@ public interface AdminService {
     public ResponseEntity<ResponseData<Admin>> createAdmin(RegisterRequest admin);
     public ResponseEntity<ResponseData<ResponseToken>> updateAdmin(Long id, Admin admin);
     public ResponseEntity<ResponseData<String>> deleteAdmin(Long id);
-    public ResponseEntity<ResponseData<ResponseToken>> login(String username, String email, String password);
+    public ResponseEntity<ResponseData<AuthenticationResponse>> login(String username, String email, String password);
+    public ResponseEntity<ResponseData<Admin>> findByEmail(String email);
 }
