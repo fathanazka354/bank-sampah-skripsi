@@ -12,7 +12,6 @@ import com.skripsi.waste_bank.utils.Role;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -90,42 +89,21 @@ public class AdminServiceImpl implements AdminService {
                 admin.getEmail() == null ? adminOptional.get().getEmail():admin.getEmail(),
                 Objects.equals(admin.getImgUrl(), "") ? adminOptional.get().getImgUrl():admin.getImgUrl(),
                 adminOptional.get().getIdAdmin());
-        logger.info("Data Updated {}",result);
+        logger.info("Data Updated {}",admin.getEmail());
+//        authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(
+//                        admin.getEmail(),
+//                        admin.getPassword()
+//                )
+//        );
+//        var user = adminRepository.findByEmail(admin.getEmail()).orElseThrow();
+//        var jwt = jwtService.generateToken(user);
+//        var response = ResponseToken.builder().token(jwt).build();
         if (result > 0){
             return methodGenericService.extractDataToResponseSingleCreateUpdate(List.of(""), "Data successfully to update");
         }
         return methodGenericService.extractDataToResponseSingleCreateUpdate(List.of("Data failed to update"), "Data is not Updated");
     }
-
-//    ResponseEntity<String> extractUpdateAdmin(Long id, Admin admin){
-//        Optional<Admin> adminOptional  = adminRepository.findById(id);
-//        if (adminOptional.isEmpty()) {
-//            logger.info("Data admin tidak ditemukan");
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
-//        if (admin.getPassword() != null && admin.getPassword().length() < 6){
-//            logger.info("Password < 6");
-//            return new ResponseEntity<>("Password Kurang dari 6 character",HttpStatus.BAD_REQUEST);
-//        }
-//        List<Admin> admins = adminRepository.checkUserExists(admin.getUsername(), admin.getEmail());
-//
-//
-//        if (!admins.isEmpty()){
-//            logger.info("Data admin sudah ada");
-//            return new ResponseEntity<>("Data Admin Sudah ada",HttpStatus.BAD_REQUEST);
-//        }
-//        int result = adminRepository.updateAdmin(
-//                admin.getUsername() == null ? adminOptional.get().getUsername():admin.getUsername(),
-//                admin.getPassword() == null ? adminOptional.get().getPassword():admin.getPassword(),
-//                admin.getEmail() == null ? adminOptional.get().getEmail():admin.getEmail(),
-//                Objects.equals(admin.getImgUrl(), "") ? adminOptional.get().getImgUrl():admin.getImgUrl(),
-//                adminOptional.get().getIdAdmin());
-//        logger.info("Data Updated {}",result);
-//        if (result > 0){
-//            return new ResponseEntity<>("Data Updated", HttpStatus.OK);
-//        }
-//        return new ResponseEntity<>("Data can not Updated", HttpStatus.BAD_REQUEST);
-//    }
 
     @Override
     public ResponseEntity<ResponseData<String>> deleteAdmin(Long id){
