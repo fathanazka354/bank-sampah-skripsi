@@ -1,6 +1,7 @@
 package com.skripsi.waste_bank.controller;
 
 import com.skripsi.waste_bank.dto.ResponseData;
+import com.skripsi.waste_bank.dto.ResponseTotal;
 import com.skripsi.waste_bank.models.Information;
 import com.skripsi.waste_bank.services.InformationService;
 import com.skripsi.waste_bank.services.SendImageService;
@@ -24,6 +25,11 @@ public class InformationController {
     @GetMapping("all")
     public ResponseEntity<ResponseData<List<Information>>> getAllInformation(){
         return informationService.getAllInformation();
+    }
+
+    @GetMapping("total")
+    public ResponseEntity<ResponseData<ResponseTotal>> getAllInformationsTotal(){
+        return informationService.getAllInformationsTotal();
     }
 
     @GetMapping("all-active")

@@ -24,6 +24,9 @@ public interface NasabahRepository extends JpaRepository<Nasabah, Long> {
     @Query("SELECT a FROM Nasabah a WHERE  a.email = :email")
     List<Nasabah> checkUserExists(@Param("email") String email);
 
+    @Query("SELECT COUNT(a) FROM Nasabah a")
+    Integer getUsersTotal();
+
     Optional<Nasabah> findByEmail(String email);
 
 //    @Query("SELECT n FROM Nasabah n WHERE (n.firstName = :firstName AND n.password = :password) OR (n.email = :email AND n.password = :password)")

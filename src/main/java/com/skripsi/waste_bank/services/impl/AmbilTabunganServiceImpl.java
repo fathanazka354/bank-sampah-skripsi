@@ -1,6 +1,7 @@
 package com.skripsi.waste_bank.services.impl;
 
 import com.skripsi.waste_bank.dto.ResponseData;
+import com.skripsi.waste_bank.dto.ResponseTotal;
 import com.skripsi.waste_bank.errors.NullPointerException;
 import com.skripsi.waste_bank.models.Admin;
 import com.skripsi.waste_bank.models.AmbilTabungan;
@@ -40,6 +41,13 @@ class AmbilTabunganServiceImpl implements AmbilTabunganService {
             throw new NullPointerException(HttpStatus.BAD_REQUEST, "Value is not present");
         }
         return methodGenericService.extractDataToResponseSingle(true,stateAmbilTabungan.get());
+    }
+
+    @Override
+    public ResponseEntity<ResponseData<ResponseTotal>> getAmbilTabungansTotal() {
+        var total = ambilTabunganRepository.getAmbilTabunganTotal();
+        var response = ResponseTotal.builder().total(total).section("AMBIL TABUNGAN").build();
+        return methodGenericService.extractDataToResponseSingle(true,response);
     }
 
     @Override

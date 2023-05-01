@@ -1,10 +1,7 @@
 package com.skripsi.waste_bank.services.impl;
 
 import com.skripsi.waste_bank.configuration.JwtService;
-import com.skripsi.waste_bank.dto.AuthenticationResponse;
-import com.skripsi.waste_bank.dto.NasabahDTO;
-import com.skripsi.waste_bank.dto.ResponseData;
-import com.skripsi.waste_bank.dto.ResponseToken;
+import com.skripsi.waste_bank.dto.*;
 import com.skripsi.waste_bank.models.Nasabah;
 import com.skripsi.waste_bank.repository.NasabahRepository;
 import com.skripsi.waste_bank.services.NasabahService;
@@ -46,6 +43,14 @@ public class NasabahServiceImpl implements NasabahService {
             return methodGenericService.extractDataToResponseSingle(false,null);
         }
         return methodGenericService.extractDataToResponseSingle(true,nasabahRepository.findById(id).get());
+    }
+
+    @Override
+    public ResponseEntity<ResponseData<ResponseTotal>> getNasabahsTotal() {
+        var total = nasabahRepository.getUsersTotal();
+
+        return methodGenericService.extractDataToResponseSingle(true,
+                ResponseTotal.builder().total(total).section("NASABAH").build());
     }
 
     @Override

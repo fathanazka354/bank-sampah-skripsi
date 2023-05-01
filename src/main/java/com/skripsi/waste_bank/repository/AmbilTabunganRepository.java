@@ -11,4 +11,7 @@ public interface AmbilTabunganRepository extends JpaRepository<AmbilTabungan,Lon
     @Transactional
     @Query("UPDATE AmbilTabungan ab SET ab.isDeleted = true WHERE ab.idAmbilTabungan = :idAmbilTabungan")
     int deleteAmbilTabungan(Long idAmbilTabungan);
+
+    @Query("SELECT COUNT(ab) FROM AmbilTabungan ab")
+    Integer getAmbilTabunganTotal();
 }

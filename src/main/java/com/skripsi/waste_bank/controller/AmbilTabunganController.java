@@ -1,6 +1,7 @@
 package com.skripsi.waste_bank.controller;
 
 import com.skripsi.waste_bank.dto.ResponseData;
+import com.skripsi.waste_bank.dto.ResponseTotal;
 import com.skripsi.waste_bank.models.AmbilTabungan;
 import com.skripsi.waste_bank.services.AmbilTabunganService;
 import com.skripsi.waste_bank.services.SendImageService;
@@ -27,6 +28,11 @@ class AmbilTabunganController {
     @GetMapping("{id}")
     public ResponseEntity<ResponseData<AmbilTabungan>> getAmbilTabunganById(@PathVariable("id") Long id){
         return ambilTabunganService.getAmbilTabunganById(id);
+    }
+
+    @GetMapping("total")
+    public ResponseEntity<ResponseData<ResponseTotal>> getAmbilTabunganBsTotal(){
+        return ambilTabunganService.getAmbilTabungansTotal();
     }
 
     @PostMapping("create/admin/{id-admin}/nasabah/{id-nasabah}")

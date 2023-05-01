@@ -91,6 +91,11 @@ public class AuthController {
         return nasabahService.getAllNasabah();
     }
 
+ @GetMapping("total")
+    public ResponseEntity<ResponseData<ResponseTotal>> getAllNasabahTotal(){
+        return nasabahService.getNasabahsTotal();
+    }
+
     @GetMapping("nasabah/{id}")
     public ResponseEntity<ResponseData<Nasabah>> getNasabahById(@PathVariable("id") Long id){
         return nasabahService.getNasabahById(id);

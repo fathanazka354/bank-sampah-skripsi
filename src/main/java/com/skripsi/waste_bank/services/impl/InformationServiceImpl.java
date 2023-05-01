@@ -1,6 +1,7 @@
 package com.skripsi.waste_bank.services.impl;
 
 import com.skripsi.waste_bank.dto.ResponseData;
+import com.skripsi.waste_bank.dto.ResponseTotal;
 import com.skripsi.waste_bank.errors.NullPointerException;
 import com.skripsi.waste_bank.models.Admin;
 import com.skripsi.waste_bank.models.Information;
@@ -36,6 +37,13 @@ public class InformationServiceImpl implements InformationService {
     @Override
     public ResponseEntity<ResponseData<List<Information>>> getAllInformationActive() {
         return methodGenericService.extractDataToResponse(informationRepository.getAllInformationActive());
+    }
+
+    @Override
+    public ResponseEntity<ResponseData<ResponseTotal>> getAllInformationsTotal() {
+        var total = informationRepository.getAllInformationTotal();
+        return methodGenericService.extractDataToResponseSingle(true,
+                ResponseTotal.builder().total(total).section("INFORMATION").build());
     }
 
     @Override

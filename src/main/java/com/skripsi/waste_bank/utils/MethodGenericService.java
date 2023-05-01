@@ -15,7 +15,7 @@ import java.util.Objects;
 public class MethodGenericService {
     Logger logger = LoggerFactory.getLogger(MethodGenericService.class);
     public <T> ResponseEntity extractDataToResponse(List<T> dataList){
-        ResponseData responseData = new ResponseData();
+        ResponseData responseData = new ResponseData<List<T>>();
 
         responseData.setData(dataList);
         responseData.setStatus("Success");
