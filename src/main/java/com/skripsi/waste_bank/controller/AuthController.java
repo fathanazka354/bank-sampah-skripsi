@@ -91,7 +91,7 @@ public class AuthController {
         return nasabahService.getAllNasabah();
     }
 
- @GetMapping("total")
+    @GetMapping("total")
     public ResponseEntity<ResponseData<ResponseTotal>> getAllNasabahTotal(){
         return nasabahService.getNasabahsTotal();
     }
