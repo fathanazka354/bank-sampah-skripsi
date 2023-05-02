@@ -2,6 +2,7 @@ package com.skripsi.waste_bank.controller;
 
 import com.skripsi.waste_bank.dto.ResponseData;
 import com.skripsi.waste_bank.dto.ResponseTotal;
+import com.skripsi.waste_bank.dto.ResponseTotalTabungSampah;
 import com.skripsi.waste_bank.models.TabungSampah;
 import com.skripsi.waste_bank.services.TabungSampahService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class TabungSampahController {
     }
 
     @GetMapping("total")
-    public ResponseEntity<ResponseData<ResponseTotal>> getAllTabungSampahsTotal(){
+    public ResponseEntity<ResponseData<ResponseTotalTabungSampah>> getAllTabungSampahsTotal(){
         return tabungSampahService.getTabungSampahsTotal();
     }
 

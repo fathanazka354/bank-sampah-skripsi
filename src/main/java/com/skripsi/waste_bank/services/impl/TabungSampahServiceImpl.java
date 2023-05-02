@@ -1,7 +1,7 @@
 package com.skripsi.waste_bank.services.impl;
 
 import com.skripsi.waste_bank.dto.ResponseData;
-import com.skripsi.waste_bank.dto.ResponseTotal;
+import com.skripsi.waste_bank.dto.ResponseTotalTabungSampah;
 import com.skripsi.waste_bank.errors.NullPointerException;
 import com.skripsi.waste_bank.models.*;
 import com.skripsi.waste_bank.repository.*;
@@ -84,13 +84,13 @@ public class TabungSampahServiceImpl implements TabungSampahService {
     }
 
     @Override
-    public ResponseEntity<ResponseData<ResponseTotal>> getTabungSampahsTotal() {
-        Double total = tabungSampahRepository.getAllTabungSampahTotal();
+    public ResponseEntity<ResponseData<ResponseTotalTabungSampah>> getTabungSampahsTotal() {
+        double total = tabungSampahRepository.getAllTabungSampahTotal();
         if (total == 0){
             return methodGenericService.extractDataToResponseSingle(true,null);
         }
-        var response = ResponseTotal.builder()
-                .total(total.intValue())
+        var response = ResponseTotalTabungSampah.builder()
+                .total(total)
                 .section("TABUNG SAMPAH").build();
         return methodGenericService.extractDataToResponseSingle(true,response);
     }
