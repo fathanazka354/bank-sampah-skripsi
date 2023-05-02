@@ -86,6 +86,9 @@ public class TabungSampahServiceImpl implements TabungSampahService {
     @Override
     public ResponseEntity<ResponseData<ResponseTotalTabungSampah>> getTabungSampahsTotal() {
         var total = tabungSampahRepository.getAllTabungSampahTotal();
+        if (total == null){
+            total = (double) 0;
+        }
         var response = ResponseTotalTabungSampah.builder()
                 .total(total)
                 .section("TABUNG SAMPAH").build();
