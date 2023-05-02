@@ -19,7 +19,7 @@ public interface TabungSampahRepository extends JpaRepository<TabungSampah, Long
     List<TabungSampah> getAllTabungSampah();
 
     @Query("SELECT SUM(ts.totalTabungSampah) FROM TabungSampah ts")
-    double getAllTabungSampahTotal();
+    Double getAllTabungSampahTotal();
 
     @Query("SELECT ts FROM TabungSampah ts WHERE ts.idTabungSampah = :idTabungSampah")
     TabungSampah getTabungSampahById(Long idTabungSampah);
