@@ -38,7 +38,7 @@ public class AuthController {
         return adminService.getAdminById(id);
     }
 
-    @GetMapping("admin/email")
+    @PostMapping("admin/email")
     public ResponseEntity<ResponseData<Admin>> getAdminByEmail(@RequestParam("email") String email){
         return adminService.findByEmail(email);
     }
@@ -100,7 +100,7 @@ public class AuthController {
     public ResponseEntity<ResponseData<Nasabah>> getNasabahById(@PathVariable("id") Long id){
         return nasabahService.getNasabahById(id);
     }
-    @GetMapping("nasabah/email")
+    @PostMapping("nasabah/email")
     public ResponseEntity<ResponseData<Nasabah>> getNasabahByEmail(@RequestParam("email") String email){
         return nasabahService.getByEmail(email);
     }
