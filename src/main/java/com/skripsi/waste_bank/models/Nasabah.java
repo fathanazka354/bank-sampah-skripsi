@@ -66,6 +66,9 @@ public class Nasabah implements UserDetails {
     @JoinColumn(name = "role")
     private Role role;
 
+    @JoinColumn(name = "tabungan")
+    private Double tabungan;
+
     @OneToMany(mappedBy = "nasabah")
     @JsonIgnore
     private List<Information> information;

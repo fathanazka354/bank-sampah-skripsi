@@ -81,7 +81,6 @@ public class NasabahServiceImpl implements NasabahService {
             }
         }
         Optional<Nasabah> nasabahById = nasabahRepository.findById(id);
-        System.out.println(nasabahById.get().getImgUrl());
         int result = nasabahRepository.updateNasabah(
                 nasabah.getFirstName() == null ? nasabahById.get().getFirstName():nasabah.getFirstName(),
                 nasabah.getLastName() == null ? nasabahById.get().getLastName():nasabah.getLastName(),
@@ -89,6 +88,7 @@ public class NasabahServiceImpl implements NasabahService {
                 nasabah.getEmail() == null ? nasabahById.get().getEmail():nasabah.getEmail(),
                 Objects.equals(nasabah.getImgUrl(), "") ? nasabahById.get().getImgUrl():nasabah.getImgUrl(),
                 nasabah.getAddress() == null ? nasabahById.get().getAddress():nasabah.getAddress(),
+                nasabah.getTabungan() == null ? nasabahById.get().getTabungan():nasabah.getTabungan(),
                 nasabahById.get().getIdNasabah());
         if (result > 0){
             return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList(""),"Data updated");
@@ -113,6 +113,7 @@ public class NasabahServiceImpl implements NasabahService {
                 .email(nasabahDto.getEmail())
                 .password(passwordEncoder.encode(nasabahDto.getPassword()))
                 .role(Role.NASABAH)
+                .tabungan(0.0)
                 .isDeleted(false)
                 .build();
 
