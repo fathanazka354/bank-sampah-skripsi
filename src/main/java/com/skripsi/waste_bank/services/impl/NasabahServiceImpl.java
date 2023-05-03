@@ -130,7 +130,11 @@ public class NasabahServiceImpl implements NasabahService {
         );
         var user = nasabahRepository.findByEmail(email).orElseThrow();
         var jwt =jwtService.generateToken(user);
-        var response = AuthenticationResponse.builder().email(email).token(jwt).build();
+        var response = AuthenticationResponse.builder()
+                .email(email)
+                .role(Role.NASABAH)
+                .token(jwt)
+                .build();
         return methodGenericService.extractDataToResponseSingle(true, response);
     }
 

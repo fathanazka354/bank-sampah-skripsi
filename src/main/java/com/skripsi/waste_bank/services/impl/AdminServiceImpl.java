@@ -120,7 +120,7 @@ public class AdminServiceImpl implements AdminService {
         );
         var user = adminRepository.findByEmail(email).orElseThrow();
         var jwt = jwtService.generateToken(user);
-        var response = AuthenticationResponse.builder().email(email).token(jwt).build();
+        var response = AuthenticationResponse.builder().email(email).role(Role.ADMIN).token(jwt).build();
             return methodGenericService.extractDataToResponseSingle(true,response);
     }
 
