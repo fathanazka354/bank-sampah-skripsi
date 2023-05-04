@@ -135,6 +135,7 @@ public class NasabahServiceImpl implements NasabahService {
                 .email(email)
                 .role(Role.NASABAH)
                 .token(jwt)
+                .id(user.getIdNasabah())
                 .build();
         return methodGenericService.extractDataToResponseSingle(true, response);
     }
