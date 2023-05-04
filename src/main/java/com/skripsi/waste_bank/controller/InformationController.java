@@ -42,9 +42,10 @@ public class InformationController {
         return informationService.getInformationById(id);
     }
 
-    @PostMapping("create/admin/{id-admin}/nasabah/{id-nasabah}")
-    public ResponseEntity<ResponseData<String>> createInformation(@RequestBody Information information, @PathVariable("id-admin")Long idAdmin, @PathVariable("id-nasabah")Long idNasabah){
-        return informationService.createInformation(information, idAdmin,idNasabah);
+    @PostMapping("create/admin/{id-admin}")
+    public ResponseEntity<ResponseData<String>> createInformation(@RequestBody Information information,
+                                                                  @PathVariable("id-admin")Long idAdmin){
+        return informationService.createInformation(information, idAdmin);
     }
 
     @PutMapping("update/{id}")

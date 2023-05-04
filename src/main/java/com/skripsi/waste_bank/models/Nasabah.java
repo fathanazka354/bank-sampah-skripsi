@@ -71,11 +71,11 @@ public class Nasabah implements UserDetails {
 
     @OneToMany(mappedBy = "nasabah")
     @JsonIgnore
-    private List<Information> information;
+    private List<AmbilTabungan> ambilTabungans;
 
     @OneToMany(mappedBy = "nasabah")
     @JsonIgnore
-    private List<AmbilTabungan> ambilTabungans;
+    private List<TabungSampah> tabungSampahs;
 
     @CreationTimestamp
     @JoinColumn(name = "created_at",updatable = false)

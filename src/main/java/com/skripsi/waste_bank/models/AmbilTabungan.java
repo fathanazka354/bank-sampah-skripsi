@@ -30,16 +30,15 @@ public class AmbilTabungan {
     private double saldoTaked;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "id_user")
+    @JoinColumn(name = "id_nasabah")
     private Nasabah nasabah;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_admin")
     private Admin admin;
 
-//    @ManyToOne(cascade = CascadeType.MERGE)
-//    @JoinColumn(name = "id_user")
-//    private User user;
+    @JoinColumn(name = "user_id",nullable = false)
+    private Long userId;
 
     @Value("false")
     @JoinColumn(name = "is_deleted")

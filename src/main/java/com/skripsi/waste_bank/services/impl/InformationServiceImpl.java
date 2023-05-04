@@ -55,10 +55,7 @@ public class InformationServiceImpl implements InformationService {
     }
 
     @Override
-    public ResponseEntity<ResponseData<String>> createInformation(Information information, Long idAdmin, Long idNasabah) {
-        if (!nasabahRepository.existsById(idNasabah)){
-            return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Nasabah is empty"), "Data is not Saved");
-        }
+    public ResponseEntity<ResponseData<String>> createInformation(Information information, Long idAdmin) {
         if (!adminRepository.existsById(idAdmin)){
             return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Admin is empty"), "Data is not Saved");
         }
@@ -68,7 +65,6 @@ public class InformationServiceImpl implements InformationService {
         information1.setJudul(information.getJudul());
         information1.setImgUrl(information.getImgUrl());
         information1.setAdmin(adminRepository.findById(idAdmin).get());
-        information1.setNasabah(nasabahRepository.findById(idNasabah).get());
         information1.setDeskripsi(information.getDeskripsi());
         information1.setPenerbit(information.getPenerbit());
 
@@ -101,7 +97,6 @@ public class InformationServiceImpl implements InformationService {
         informationObj.setPenerbit(penerbit);
         informationObj.setDeskripsi(deskripsi);
         informationObj.setImgUrl(imagUrl);
-        informationObj.setNasabah(informationById.getNasabah());
         informationObj.setAdmin(informationById.getAdmin());
 
         informationRepository.saveAndFlush(informationObj);

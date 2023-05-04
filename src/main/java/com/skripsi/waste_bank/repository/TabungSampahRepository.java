@@ -21,6 +21,9 @@ public interface TabungSampahRepository extends JpaRepository<TabungSampah, Long
     @Query("SELECT SUM(ts.totalTabungSampah) FROM TabungSampah ts")
     Double getAllTabungSampahTotal();
 
+    @Query("SELECT COUNT(ts.totalTabungSampah) FROM TabungSampah ts WHERE ts.nasabah = :idNasabah")
+    Integer getAllTabungSampahTotalByIdNasabah(Long idNasabah);
+
     @Query("SELECT ts FROM TabungSampah ts WHERE ts.idTabungSampah = :idTabungSampah")
     TabungSampah getTabungSampahById(Long idTabungSampah);
 

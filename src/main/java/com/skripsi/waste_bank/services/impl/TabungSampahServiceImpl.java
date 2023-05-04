@@ -1,6 +1,7 @@
 package com.skripsi.waste_bank.services.impl;
 
 import com.skripsi.waste_bank.dto.ResponseData;
+import com.skripsi.waste_bank.dto.ResponseTotal;
 import com.skripsi.waste_bank.dto.ResponseTotalTabungSampah;
 import com.skripsi.waste_bank.errors.NullPointerException;
 import com.skripsi.waste_bank.models.*;
@@ -35,12 +36,6 @@ public class TabungSampahServiceImpl implements TabungSampahService {
 
         if (!jenisPengambilanRepository.existsById(tabungSampah.getJenisPengangkutan().getIdJenisPengangkutan())){
             return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Data Pengangkut is Empty"),"Data is not Updated");
-        }
-        if (!nasabahRepository.existsById(tabungSampah.getNasabah().getIdNasabah())){
-            return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Data Nasabah is Empty"),"Data is not Updated");
-        }
-        if (!adminRepository.existsById(tabungSampah.getAdmin().getIdAdmin())){
-            return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Data Admin is Empty"),"Data is not Updated");
         }
 
         tabungSampahRepository.saveAndFlush(tabungSampah);
@@ -80,7 +75,6 @@ public class TabungSampahServiceImpl implements TabungSampahService {
             throw new NullPointerException(HttpStatus.BAD_REQUEST,"Value is Empty");
         }
         return null;
-//        return tabungSampahRepository.getAllTabungSampahByIdNasabah(idNasabah);
     }
 
     @Override
@@ -93,5 +87,12 @@ public class TabungSampahServiceImpl implements TabungSampahService {
                 .total(total)
                 .section("TABUNG SAMPAH").build();
         return methodGenericService.extractDataToResponseSingle(true,response);
+    }
+
+    @Override
+    public ResponseEntity<ResponseData<ResponseTotal>> getTabungSampahsTotalByIdNasabah(Long idNasabah) {
+        var total = tabungSampahRepository.getAllTabungSampahTotalByIdNasabah(idNasabah);
+        var response = ResponseTotal.builder().total(total).section("TABUNG SAMPAH").build();
+        return methodGenericService.extractDataToResponseSingle(true, response);
     }
 }

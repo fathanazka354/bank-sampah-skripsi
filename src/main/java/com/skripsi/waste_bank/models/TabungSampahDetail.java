@@ -23,11 +23,11 @@ import java.util.Date;
 public class TabungSampahDetail {
     @Id
     @JoinColumn(name = "id_tabung_sampah_detail")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idTabungSampahDetail;
 
     @ManyToOne
-    @JsonIgnore
+    @JoinColumn(name = "id_tabung_sampah")
     private TabungSampah tabungSampah;
 
     @OneToOne(cascade = CascadeType.MERGE)

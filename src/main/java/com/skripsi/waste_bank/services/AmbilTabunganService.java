@@ -13,6 +13,7 @@ public interface AmbilTabunganService {
     ResponseEntity<ResponseData<List<AmbilTabungan>>> getAllAmbilTabungan();
     ResponseEntity<ResponseData<AmbilTabungan>> getAmbilTabunganById(Long id);
     ResponseEntity<ResponseData<ResponseTotal>> getAmbilTabungansTotal();
+    ResponseEntity<ResponseData<ResponseTotal>> getAmbilTabungansTotalByIdNasabah(Long idNasabah);
     ResponseEntity<ResponseData<AmbilTabungan>> createTabungan(AmbilTabungan ambilTabungan,Long idNasabah, Long idAdmin);
     ResponseEntity<ResponseData<AmbilTabungan>> updateTabungan(AmbilTabungan ambilTabungan, Long id, Long idAdmin, Long idNasabah);
     ResponseEntity<ResponseData<String>> deleteAmbilTabungan(Long idAmbilTabungan);

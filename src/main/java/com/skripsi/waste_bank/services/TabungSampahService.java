@@ -1,6 +1,7 @@
 package com.skripsi.waste_bank.services;
 
 import com.skripsi.waste_bank.dto.ResponseData;
+import com.skripsi.waste_bank.dto.ResponseTotal;
 import com.skripsi.waste_bank.dto.ResponseTotalTabungSampah;
 import com.skripsi.waste_bank.models.TabungSampah;
 import org.springframework.http.ResponseEntity;
@@ -17,4 +18,5 @@ public interface TabungSampahService {
     ResponseEntity<ResponseData<TabungSampah>> getTabungSampahById(Long id);
     ResponseEntity<ResponseData<List<TabungSampah>>> getTabungSampahByIdNasabah(Long idNasabah);
     ResponseEntity<ResponseData<ResponseTotalTabungSampah>> getTabungSampahsTotal();
+    ResponseEntity<ResponseData<ResponseTotal>> getTabungSampahsTotalByIdNasabah(Long idNasabah);
 }

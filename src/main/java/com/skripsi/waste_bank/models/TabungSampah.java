@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -37,13 +38,12 @@ public class TabungSampah {
     @JoinColumn(name = "id_jenis_pengangkutan")
     private JenisPengangkutan jenisPengangkutan;
 
-    @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "id_nasabah")
-    private Nasabah nasabah;
 
-    @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "id_admin")
-    private Admin admin;
+    @JoinColumn(name = "nasabah",nullable = false)
+    private Long nasabah;
+
+    @JoinColumn(name = "admin",nullable = false)
+    private Long admin;
 
     @Value("false")
     @JoinColumn(name = "is_deleted")

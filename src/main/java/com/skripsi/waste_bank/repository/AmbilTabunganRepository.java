@@ -14,4 +14,7 @@ public interface AmbilTabunganRepository extends JpaRepository<AmbilTabungan,Lon
 
     @Query("SELECT COUNT(ab) FROM AmbilTabungan ab")
     Integer getAmbilTabunganTotal();
+
+    @Query("SELECT COUNT(ab) FROM AmbilTabungan ab WHERE ab.userId = :idNasabah")
+    Integer getAmbilTabunganTotalByIdNasabah(Long idNasabah);
 }

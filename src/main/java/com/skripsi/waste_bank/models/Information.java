@@ -9,8 +9,6 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import java.util.Date;
 
@@ -26,16 +24,12 @@ public class Information {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idInformation;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "id_nasabah")
-    private Nasabah nasabah;
-
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_admin")
     private Admin admin;
 
-    @Column(name = "judul", unique = false)
+    @Column(name = "judul")
     @NotBlank(message = "Judul must be filled")
     private String judul;
 

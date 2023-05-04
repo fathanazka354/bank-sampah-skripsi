@@ -14,7 +14,7 @@ public interface InformationService {
     ResponseEntity<ResponseData<List<Information>>> getAllInformationActive();
     ResponseEntity<ResponseData<ResponseTotal>> getAllInformationsTotal();
     ResponseEntity<ResponseData<Information>> getInformationById(Long id);
-    ResponseEntity<ResponseData<String>> createInformation(Information information, Long idAdmin, Long idNasabah);
+    ResponseEntity<ResponseData<String>> createInformation(Information information, Long idAdmin);
     List<Information> createManyInformation(List<Information> informations);
     ResponseEntity<ResponseData<String>> updateInformation(Long id,Information information);
     ResponseEntity<ResponseData<String>> deleteInformation(Long id);

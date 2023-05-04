@@ -28,6 +28,11 @@ public class TabungSampahController {
         return tabungSampahService.getTabungSampahsTotal();
     }
 
+    @GetMapping("total/nasabah/{id}")
+    public ResponseEntity<ResponseData<ResponseTotal>> getAllTabungSampahsTotalByIdNasabah(@PathVariable("id") Long idNasabah){
+        return tabungSampahService.getTabungSampahsTotalByIdNasabah(idNasabah);
+    }
+
     @GetMapping("{id}")
     public ResponseEntity<ResponseData<TabungSampah>> getTabungSampahById(@PathVariable("id") Long id){
         return tabungSampahService.getTabungSampahById(id);

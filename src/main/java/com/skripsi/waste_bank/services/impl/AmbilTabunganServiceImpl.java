@@ -51,6 +51,13 @@ class AmbilTabunganServiceImpl implements AmbilTabunganService {
     }
 
     @Override
+    public ResponseEntity<ResponseData<ResponseTotal>> getAmbilTabungansTotalByIdNasabah(Long idNasabah) {
+        var total = ambilTabunganRepository.getAmbilTabunganTotalByIdNasabah(idNasabah);
+        var response = ResponseTotal.builder().total(total).section("AMBIL TABUNGAN").build();
+        return methodGenericService.extractDataToResponseSingle(true,response);
+    }
+
+    @Override
     public ResponseEntity<ResponseData<AmbilTabungan>> createTabungan(AmbilTabungan ambilTabungan, Long idNasabah, Long idAdmin) {
         if (!nasabahRepository.existsById(idNasabah)){
             return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Data Nasabah is not exist"),"Data is not Saved");
@@ -65,6 +72,7 @@ class AmbilTabunganServiceImpl implements AmbilTabunganService {
         ambilTabunganObj.setNasabah(stateNasabah.get());
         ambilTabunganObj.setSaldoTaked(ambilTabungan.getSaldoTaked());
         ambilTabunganObj.setAdmin(adminRepository.findById(idAdmin).get());
+        ambilTabunganObj.setUserId(idNasabah);
 
         ambilTabunganRepository.saveAndFlush(ambilTabunganObj);
         return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList(""),"Data Saved");

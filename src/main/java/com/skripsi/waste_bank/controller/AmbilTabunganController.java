@@ -31,8 +31,12 @@ class AmbilTabunganController {
     }
 
     @GetMapping("total")
-    public ResponseEntity<ResponseData<ResponseTotal>> getAmbilTabunganBsTotal(){
+    public ResponseEntity<ResponseData<ResponseTotal>> getAmbilTabunganByTotal(){
         return ambilTabunganService.getAmbilTabungansTotal();
+    }
+    @GetMapping("total/nasabah/{id}")
+    public ResponseEntity<ResponseData<ResponseTotal>> getAmbilTabunganTotalByIdNasabah(@PathVariable("id")Long idNasabah){
+        return ambilTabunganService.getAmbilTabungansTotalByIdNasabah(idNasabah);
     }
 
     @PostMapping("create/admin/{id-admin}/nasabah/{id-nasabah}")
