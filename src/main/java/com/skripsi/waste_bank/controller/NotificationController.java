@@ -24,7 +24,7 @@ public class NotificationController {
         return notificationService.getAllNotifications();
     }
 
-    @GetMapping("user")
+    @PostMapping("user")
     public ResponseEntity<ResponseData<List<Notification>>> getAllNotificationsByIdUser(@RequestParam("email")String email){
         return notificationService.getAllNotificationsByIdUser(email);
     }
