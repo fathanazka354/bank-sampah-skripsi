@@ -1,0 +1,34 @@
+package com.skripsi.waste_bank.controller;
+
+import com.skripsi.waste_bank.dto.NotificationRequest;
+import com.skripsi.waste_bank.dto.ResponseData;
+import com.skripsi.waste_bank.models.Notification;
+import com.skripsi.waste_bank.services.NotificationService;
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/v1/notification/")
+@AllArgsConstructor
+public class NotificationController {
+    private NotificationService notificationService;
+
+    @GetMapping("all")
+    public ResponseEntity<ResponseData<List<Notification>>> getAllNotifications(){
+        return notificationService.getAllNotifications();
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseData<Notification>> getNotificationById(@PathVariable("id") Long id){
+        return notificationService.getNotificationById(id);
+    }
+    @PostMapping("create")
+    public ResponseEntity<ResponseData<Notification>> createNotification(@RequestBody @Valid NotificationRequest notificationRequest){
+        return notificationService.createNotification(notificationRequest);
+    }
+}
