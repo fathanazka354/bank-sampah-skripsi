@@ -10,6 +10,7 @@ import java.util.List;
 @Service
 public interface NotificationService {
      ResponseEntity<ResponseData<List<Notification>>> getAllNotifications();
+     ResponseEntity<ResponseData<List<Notification>>> getAllNotificationsByIdUser(String idUser);
      ResponseEntity<ResponseData<Notification>> getNotificationById(Long id);
      ResponseEntity<ResponseData<Notification>> createNotification(NotificationRequest notificationRequest);
 }

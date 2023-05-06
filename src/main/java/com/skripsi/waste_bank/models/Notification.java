@@ -31,6 +31,8 @@ public class Notification {
     @JoinColumn(name = "type", nullable = false)
     private TypeNotification type;
 
+    @JoinColumn(name = "userId", nullable = false)
+    private String userId;
 
     @CreationTimestamp
     @JoinColumn(name = "created_at",updatable = false)

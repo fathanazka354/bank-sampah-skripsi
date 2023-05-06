@@ -67,6 +67,7 @@ public class InformationServiceImpl implements InformationService {
         information1.setAdmin(adminRepository.findById(idAdmin).get());
         information1.setDeskripsi(information.getDeskripsi());
         information1.setPenerbit(information.getPenerbit());
+        information1.setType(information.getType());
 
 
         informationRepository.saveAndFlush(information1);
@@ -91,6 +92,7 @@ public class InformationServiceImpl implements InformationService {
         String deskripsi = information.getDeskripsi() == null ? informationById.getDeskripsi() : information.getDeskripsi();
         String penerbit = information.getPenerbit() == null ? informationById.getPenerbit() : information.getPenerbit();
         String imagUrl = information.getImgUrl() == null ? informationById.getImgUrl() : information.getImgUrl();
+        String type = information.getType() == null ? informationById.getType() : information.getType();
 
         informationObj.setIdInformation(id);
         informationObj.setJudul(judul);
@@ -98,6 +100,7 @@ public class InformationServiceImpl implements InformationService {
         informationObj.setDeskripsi(deskripsi);
         informationObj.setImgUrl(imagUrl);
         informationObj.setAdmin(informationById.getAdmin());
+        informationObj.setType(informationById.getType());
 
         informationRepository.saveAndFlush(informationObj);
 

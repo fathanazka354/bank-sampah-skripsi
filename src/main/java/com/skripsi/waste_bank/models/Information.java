@@ -41,9 +41,12 @@ public class Information {
     @NotBlank(message = "Penerbit must be filled")
     private String penerbit;
 
-
     @Column(name = "image_url")
     private String imgUrl = "";
+
+    @Column(name = "type")
+    @NotBlank(message = "Type must be filled")
+    private String type;
 
     @Value("false")
     @JoinColumn(name = "is_deleted")

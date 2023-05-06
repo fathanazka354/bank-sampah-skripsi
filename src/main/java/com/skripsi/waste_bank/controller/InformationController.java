@@ -6,6 +6,7 @@ import com.skripsi.waste_bank.models.Information;
 import com.skripsi.waste_bank.services.InformationService;
 import com.skripsi.waste_bank.services.SendImageService;
 import com.skripsi.waste_bank.utils.Constant;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +44,7 @@ public class InformationController {
     }
 
     @PostMapping("create/admin/{id-admin}")
-    public ResponseEntity<ResponseData<String>> createInformation(@RequestBody Information information,
+    public ResponseEntity<ResponseData<String>> createInformation(@RequestBody @Valid Information information,
                                                                   @PathVariable("id-admin")Long idAdmin){
         return informationService.createInformation(information, idAdmin);
     }

@@ -23,6 +23,11 @@ public class NotificationController {
     public ResponseEntity<ResponseData<List<Notification>>> getAllNotifications(){
         return notificationService.getAllNotifications();
     }
+
+    @GetMapping("user")
+    public ResponseEntity<ResponseData<List<Notification>>> getAllNotificationsByIdUser(@RequestParam("email")String email){
+        return notificationService.getAllNotificationsByIdUser(email);
+    }
     @GetMapping("/{id}")
     public ResponseEntity<ResponseData<Notification>> getNotificationById(@PathVariable("id") Long id){
         return notificationService.getNotificationById(id);

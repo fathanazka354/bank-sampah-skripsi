@@ -24,4 +24,7 @@ public class NotificationRequest {
     @NotBlank(message = "type field can not blank")
     @Enumerated(EnumType.STRING)
     private String type;
+
+    @NotBlank(message = "email field can not blank")
+    private String userId;
 }

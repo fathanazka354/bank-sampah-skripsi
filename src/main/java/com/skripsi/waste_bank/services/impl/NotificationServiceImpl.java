@@ -3,6 +3,8 @@ package com.skripsi.waste_bank.services.impl;
 import com.skripsi.waste_bank.dto.NotificationRequest;
 import com.skripsi.waste_bank.dto.ResponseData;
 import com.skripsi.waste_bank.models.Notification;
+import com.skripsi.waste_bank.repository.AdminRepository;
+import com.skripsi.waste_bank.repository.NasabahRepository;
 import com.skripsi.waste_bank.repository.NotificationRepository;
 import com.skripsi.waste_bank.services.NotificationService;
 import com.skripsi.waste_bank.utils.MethodGenericService;
@@ -19,9 +21,16 @@ import java.util.List;
 public class NotificationServiceImpl implements NotificationService {
     private MethodGenericService methodGenericService;
     private NotificationRepository notificationRepository;
+    private NasabahRepository nasabahRepository;
+    private AdminRepository adminRepository;
     @Override
     public ResponseEntity<ResponseData<List<Notification>>> getAllNotifications() {
         return methodGenericService.extractDataToResponse(notificationRepository.findAll());
+    }
+
+    @Override
+    public ResponseEntity<ResponseData<List<Notification>>> getAllNotificationsByIdUser(String idUser) {
+        return methodGenericService.extractDataToResponse(notificationRepository.getAllNotificationsByUserId(idUser));
     }
 
     @Override
@@ -34,10 +43,15 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public ResponseEntity<ResponseData<Notification>> createNotification(NotificationRequest notificationRequest) {
+        if(nasabahRepository.findByEmail(notificationRequest.getUserId()).isEmpty() &&
+                adminRepository.findByEmail(notificationRequest.getUserId()).isEmpty()){
+            return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("please check your email"),"Data is not saved");
+        };
         Notification notification = Notification.builder()
                 .title(notificationRequest.getTitle())
                 .description(notificationRequest.getDescription())
                 .type(TypeNotification.valueOf(notificationRequest.getType()))
+                .userId(notificationRequest.getUserId())
                 .build();
         notificationRepository.saveAndFlush(notification);
         return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList(""),"Data saved");
