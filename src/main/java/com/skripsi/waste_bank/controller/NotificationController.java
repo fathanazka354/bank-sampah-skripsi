@@ -4,10 +4,9 @@ import com.skripsi.waste_bank.dto.NotificationRequest;
 import com.skripsi.waste_bank.dto.ResponseData;
 import com.skripsi.waste_bank.models.Notification;
 import com.skripsi.waste_bank.services.NotificationService;
+import com.skripsi.waste_bank.utils.TypeNotification;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +26,11 @@ public class NotificationController {
     @PostMapping("user")
     public ResponseEntity<ResponseData<List<Notification>>> getAllNotificationsByIdUser(@RequestParam("email")String email){
         return notificationService.getAllNotificationsByIdUser(email);
+    }
+    @PostMapping("user-type")
+    public ResponseEntity<ResponseData<List<Notification>>> getAllNotificationsByIdUserAndType(@RequestParam("email")String email,
+                                                                                               @RequestParam("type")String type){
+        return notificationService.getAllNotificationsByIdUserAndType(email, TypeNotification.valueOf(type));
     }
     @GetMapping("/{id}")
     public ResponseEntity<ResponseData<Notification>> getNotificationById(@PathVariable("id") Long id){

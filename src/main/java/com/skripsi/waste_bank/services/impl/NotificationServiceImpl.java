@@ -34,6 +34,11 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
+    public ResponseEntity<ResponseData<List<Notification>>> getAllNotificationsByIdUserAndType(String idUser, TypeNotification type) {
+        return methodGenericService.extractDataToResponse(notificationRepository.getAllNotificationsByUserIdAndType(idUser, type));
+    }
+
+    @Override
     public ResponseEntity<ResponseData<Notification>> getNotificationById(Long id) {
         if (!notificationRepository.existsById(id)){
             return methodGenericService.extractDataToResponseSingle(false,null);
