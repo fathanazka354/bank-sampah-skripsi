@@ -38,12 +38,19 @@ public class TabungSampah {
     @JoinColumn(name = "id_jenis_pengangkutan")
     private JenisPengangkutan jenisPengangkutan;
 
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "id_nasabah")
+    private Nasabah nasabah;
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "id_admin")
+    private Admin admin;
 
     @JoinColumn(name = "nasabah",nullable = false)
-    private Long nasabah;
+    private Long nasabahId;
 
     @JoinColumn(name = "admin",nullable = false)
-    private Long admin;
+    private Long adminId;
 
     @Value("false")
     @JoinColumn(name = "is_deleted")
