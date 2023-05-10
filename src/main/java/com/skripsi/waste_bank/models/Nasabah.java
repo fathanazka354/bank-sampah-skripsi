@@ -56,6 +56,10 @@ public class Nasabah implements UserDetails {
     @NotBlank(message = "address can Not blank")
     private String address;
 
+    @JoinColumn(name = "telephone")
+    @NotBlank(message = "telephone can Not blank")
+    private String telephone;
+
     @Column(name = "image_url")
     private String imgUrl = Constant.DEFAULT_URL;
 
