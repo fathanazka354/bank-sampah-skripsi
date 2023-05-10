@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@RequestMapping("photo")
+@RequestMapping("/api/v1/photo")
 public class PhotoController {
     @Autowired
     private SendImageService sendImageService;
