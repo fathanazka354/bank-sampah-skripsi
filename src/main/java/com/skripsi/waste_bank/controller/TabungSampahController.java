@@ -6,7 +6,6 @@ import com.skripsi.waste_bank.dto.ResponseTotalTabungSampah;
 import com.skripsi.waste_bank.models.TabungSampah;
 import com.skripsi.waste_bank.services.TabungSampahService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,11 +36,6 @@ public class TabungSampahController {
     public ResponseEntity<ResponseData<TabungSampah>> getTabungSampahById(@PathVariable("id") Long id){
         return tabungSampahService.getTabungSampahById(id);
     }
-
-//    @GetMapping("nasabah/{id}")
-//    public ResponseEntity<ResponseData<List<TabungSampah>>> getTabungSampahByIdNasabah(@PathVariable("id") Long id){
-//        return tabungSampahService.getTabungSampahByIdNasabah(id);
-//    }
 
     @PostMapping("create")
     public ResponseEntity<ResponseData<TabungSampah>> createTabungSampah(
