@@ -34,6 +34,9 @@ public class TabungSampah {
     @JoinColumn(name = "description")
     private String description;
 
+    @JoinColumn(name = "img_url")
+    private String imgUrl;
+
     @OneToMany(cascade = CascadeType.ALL)
     private List<TabungSampahDetail> tabungSampahDetail;
 
