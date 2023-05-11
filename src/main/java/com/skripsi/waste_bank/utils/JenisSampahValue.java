@@ -3,5 +3,8 @@ package com.skripsi.waste_bank.utils;
 public enum JenisSampahValue {
     PLASTIK,
     BESI,
-    ALUMUNIUM
+    ALUMUNIUM,
+    KERTAS,
+    KACA,
+    KALENG
 }
