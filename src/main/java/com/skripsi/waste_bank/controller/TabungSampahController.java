@@ -5,6 +5,7 @@ import com.skripsi.waste_bank.dto.ResponseTotal;
 import com.skripsi.waste_bank.dto.ResponseTotalTabungSampah;
 import com.skripsi.waste_bank.models.TabungSampah;
 import com.skripsi.waste_bank.services.TabungSampahService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,7 +40,7 @@ public class TabungSampahController {
 
     @PostMapping("create")
     public ResponseEntity<ResponseData<TabungSampah>> createTabungSampah(
-            @RequestBody TabungSampah tabungSampah){
+            @RequestBody @Valid TabungSampah tabungSampah){
         return tabungSampahService.createTabungSampah(tabungSampah);
     }
 

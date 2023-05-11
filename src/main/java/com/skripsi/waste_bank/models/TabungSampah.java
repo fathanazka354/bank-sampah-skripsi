@@ -31,6 +31,9 @@ public class TabungSampah {
     @JoinColumn(name = "total_berat_sampah")
     private double totalBeratSampah;
 
+    @JoinColumn(name = "description")
+    private String description;
+
     @OneToMany(cascade = CascadeType.ALL)
     private List<TabungSampahDetail> tabungSampahDetail;
 
