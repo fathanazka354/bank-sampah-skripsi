@@ -30,7 +30,7 @@ public class TabungSampahDetail {
     @JoinColumn(name = "id_tabung_sampah")
     private TabungSampah tabungSampah;
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="id_jenis_sampah",nullable = false)
     private JenisSampah jenisSampah;
 
