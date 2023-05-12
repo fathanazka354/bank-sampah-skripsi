@@ -27,9 +27,12 @@ public class JenisSampah {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idJenisSampah;
 
-    @JoinColumn(name = "nama_jenis_sampah",nullable = false)
+    @JoinColumn(name = "nama_jenis_sampah", nullable = false)
     @Enumerated(EnumType.STRING)
     private JenisSampahValue namaJenisSampah;
+
+    @JoinColumn(name = "berat_sampah", nullable = false)
+    private Double beratSampah;
 
     @Column(name = "image_url")
     private String imgUrl = Constant.DEFAULT_URL;
@@ -43,7 +46,7 @@ public class JenisSampah {
     private boolean isDeleted;
 
     @CreationTimestamp
-    @JoinColumn(name = "created_at",updatable = false)
+    @JoinColumn(name = "created_at", updatable = false)
     private Date createdAt;
     @UpdateTimestamp
     @JoinColumn(name = "updated_at")
