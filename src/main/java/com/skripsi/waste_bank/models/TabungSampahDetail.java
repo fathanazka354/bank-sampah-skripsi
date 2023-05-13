@@ -27,6 +27,7 @@ public class TabungSampahDetail {
     private Long idTabungSampahDetail;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "id_tabung_sampah")
     private TabungSampah tabungSampah;
 

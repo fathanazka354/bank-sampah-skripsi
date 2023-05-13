@@ -37,9 +37,6 @@ public class JenisSampah {
     @Column(name = "image_url")
     private String imgUrl = Constant.DEFAULT_URL;
 
-    @JsonIgnore
-    @OneToOne
-    private TabungSampahDetail tabungSampahDetail;
 
     @Value("false")
     @JoinColumn(name = "is_deleted")
