@@ -40,7 +40,7 @@ public class TabungSampahDetail {
     private boolean isDeleted;
 
     @CreationTimestamp
-    @JoinColumn(name = "created_at",updatable = false)
+    @JoinColumn(name = "created_at", updatable = false)
     private Date createdAt;
 
     @UpdateTimestamp
