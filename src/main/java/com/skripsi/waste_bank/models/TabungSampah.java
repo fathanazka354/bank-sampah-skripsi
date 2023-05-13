@@ -40,6 +40,9 @@ public class TabungSampah {
     @JoinColumn(name = "no_telephone", nullable = false)
     private String noTelephone;
 
+    @JoinColumn(name = "address", nullable = false)
+    private String address;
+
     @OneToMany(cascade = CascadeType.ALL)
     private List<TabungSampahDetail> tabungSampahDetail;
 
