@@ -125,6 +125,8 @@ public class AuthController {
                                                                @RequestParam(required = false) String email,
                                                                @RequestParam(required = false) String password,
                                                                @RequestParam(required = false) String address,
+                                                               @RequestParam(required = false) Double tabungan,
+                                                               @RequestParam(required = false) String telephone,
                                                                @RequestParam(required = false) MultipartFile file){
         Nasabah nasabah = new Nasabah();
         String url = "";
@@ -138,6 +140,8 @@ public class AuthController {
         nasabah.setEmail(email);
         nasabah.setAddress(address);
         nasabah.setImgUrl(url);
+        nasabah.setTelephone(telephone);
+        nasabah.setTabungan(tabungan);
         return nasabahService.updateNasabahById(id,nasabah);
     }
 

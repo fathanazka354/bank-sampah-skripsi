@@ -18,8 +18,17 @@ public interface NasabahRepository extends JpaRepository<Nasabah, Long> {
 
     @Modifying
     @Transactional
-    @Query("UPDATE Nasabah a SET a.firstName = :firstName,a.lastName = :lastName, a.password = :password, a.email = :email, a.address = :address, a.imgUrl = :imgUrl, a.tabungan = :tabungan WHERE a.idNasabah = :idNasabah")
-    int updateNasabah(@Param("firstName")String firstName,@Param("lastName")String lastName, @Param("password") String password, @Param("email") String email, @Param("imgUrl") String imgUrl, @Param("address")String address,@Param("tabungan")Double tabungan, @Param("idNasabah") Long idNasabah);
+    @Query("UPDATE Nasabah a SET a.firstName = :firstName,a.lastName = :lastName, a.password = :password, a.email = :email, a.address = :address, a.imgUrl = :imgUrl, a.tabungan = :tabungan, a.telephone = :telephone WHERE a.idNasabah = :idNasabah")
+    int updateNasabah(@Param("firstName")String firstName,
+                      @Param("lastName")String lastName,
+                      @Param("password") String password,
+                      @Param("email") String email,
+                      @Param("imgUrl") String imgUrl,
+                      @Param("address")String address,
+                      @Param("tabungan")Double tabungan,
+                      @Param("telephone")String telephone,
+                      @Param("idNasabah") Long idNasabah
+    );
 
     @Query("SELECT a FROM Nasabah a WHERE  a.email = :email")
     List<Nasabah> checkUserExists(@Param("email") String email);

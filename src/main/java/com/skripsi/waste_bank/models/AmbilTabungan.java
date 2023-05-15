@@ -29,6 +29,9 @@ public class AmbilTabungan {
     @JoinColumn(name = "saldo_taked")
     private double saldoTaked;
 
+    @JoinColumn(name = "date_created", nullable = false)
+    private Date dateCreated;
+
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_nasabah")
     private Nasabah nasabah;
