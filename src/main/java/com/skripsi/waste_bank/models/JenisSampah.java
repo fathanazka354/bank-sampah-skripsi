@@ -37,7 +37,6 @@ public class JenisSampah {
     @Column(name = "image_url")
     private String imgUrl = Constant.DEFAULT_URL;
 
-
     @Value("false")
     @JoinColumn(name = "is_deleted")
     private boolean isDeleted;
@@ -45,6 +44,7 @@ public class JenisSampah {
     @CreationTimestamp
     @JoinColumn(name = "created_at", updatable = false)
     private Date createdAt;
+
     @UpdateTimestamp
     @JoinColumn(name = "updated_at")
     private Date updatedAt;

@@ -31,7 +31,7 @@ public class TabungSampahDetail {
     @JoinColumn(name = "id_tabung_sampah")
     private TabungSampah tabungSampah;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="id_jenis_sampah",nullable = false)
     private JenisSampah jenisSampah;
 
