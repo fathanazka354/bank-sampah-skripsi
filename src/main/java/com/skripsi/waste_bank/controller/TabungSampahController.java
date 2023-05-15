@@ -47,7 +47,7 @@ public class TabungSampahController {
     @PutMapping("update/{id-tabung-sampah}")
     public ResponseEntity<ResponseData<TabungSampah>> updateTabungSampah(
             @PathVariable("id-tabung-sampah") Long idTabungSampah,
-            @RequestBody TabungSampah tabungSampah
+            @RequestBody @Valid TabungSampah tabungSampah
     ){
         return tabungSampahService.updateTabungSampah(idTabungSampah,tabungSampah);
     }
