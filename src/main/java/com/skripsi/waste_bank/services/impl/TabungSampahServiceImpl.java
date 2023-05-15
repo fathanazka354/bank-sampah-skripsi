@@ -22,7 +22,6 @@ import java.util.Optional;
 public class TabungSampahServiceImpl implements TabungSampahService {
     private TabungSampahRepository tabungSampahRepository;
     private NasabahRepository nasabahRepository;
-    private AdminRepository adminRepository;
     private MethodGenericService methodGenericService;
     private JenisPengambilanRepository jenisPengambilanRepository;
     @Override
