@@ -73,6 +73,7 @@ class AmbilTabunganServiceImpl implements AmbilTabunganService {
         ambilTabunganObj.setSaldoTaked(ambilTabungan.getSaldoTaked());
         ambilTabunganObj.setAdmin(adminRepository.findById(idAdmin).get());
         ambilTabunganObj.setUserId(idNasabah);
+        ambilTabunganObj.setDateCreated(ambilTabungan.getDateCreated());
 
         ambilTabunganRepository.saveAndFlush(ambilTabunganObj);
         return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList(""),"Data Saved");
@@ -95,6 +96,7 @@ class AmbilTabunganServiceImpl implements AmbilTabunganService {
         Nasabah nasabah = nasabahRepository.findById(idNasabah).get();
         ambilTabunganObj.setNasabah(nasabah);
         ambilTabunganObj.setIdAmbilTabungan(idAmbil);
+        ambilTabunganObj.setDateCreated(ambilTabungan.getDateCreated());
 
         ambilTabunganObj.setSaldoTaked(ambilTabungan.getSaldoTaked());
 

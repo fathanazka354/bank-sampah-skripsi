@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -42,10 +43,12 @@ class AmbilTabunganController {
     @PostMapping("create/admin/{id-admin}/nasabah/{id-nasabah}")
     public ResponseEntity<ResponseData<AmbilTabungan>> createAmbilTabungan(
                                                                             @RequestParam(required = false) double saldoTaked,
+                                                                            @RequestParam(required = false) Date dateCreated,
                                                                            @PathVariable("id-admin")Long idAdmin,
                                                                            @PathVariable("id-nasabah")Long idNasabah){
         AmbilTabungan ambilTabungan = new AmbilTabungan();
         ambilTabungan.setSaldoTaked(saldoTaked);
+        ambilTabungan.setDateCreated(dateCreated);
         return ambilTabunganService.createTabungan(ambilTabungan,idNasabah, idAdmin);
     }
 
@@ -53,9 +56,11 @@ class AmbilTabunganController {
     public ResponseEntity<ResponseData<AmbilTabungan>> updateAmbilTabungan(@PathVariable("id") Long id,
                                                                            @PathVariable("id-admin")Long idAdmin,
                                                                            @PathVariable("id-nasabah")Long idNasabah,
-                                                                           @RequestParam(required = false) double saldoTaked){
+                                                                           @RequestParam(required = false) double saldoTaked,
+                                                                           @RequestParam(required = false) Date dateCreated){
         AmbilTabungan ambilTabungan = new AmbilTabungan();
         ambilTabungan.setSaldoTaked(saldoTaked);
+        ambilTabungan.setDateCreated(dateCreated);
         return ambilTabunganService.updateTabungan(ambilTabungan, id,idAdmin,idNasabah);
     }
 
