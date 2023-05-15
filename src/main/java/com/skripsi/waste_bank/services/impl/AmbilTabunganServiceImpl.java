@@ -80,7 +80,7 @@ class AmbilTabunganServiceImpl implements AmbilTabunganService {
     }
 
     @Override
-    public ResponseEntity<ResponseData<AmbilTabungan>> updateTabungan(AmbilTabungan ambilTabungan, Long idAmbil, Long idNasabah, Long idAdmin) {
+    public ResponseEntity<ResponseData<AmbilTabungan>> updateTabungan(AmbilTabungan ambilTabungan, Long idAmbil, Long idAdmin, Long idNasabah) {
         AmbilTabungan ambilTabunganObj = new AmbilTabungan();
 
         if (!nasabahRepository.existsById(idNasabah)){
@@ -94,11 +94,12 @@ class AmbilTabunganServiceImpl implements AmbilTabunganService {
         }
 
         Nasabah nasabah = nasabahRepository.findById(idNasabah).get();
-        ambilTabunganObj.setNasabah(nasabah);
         ambilTabunganObj.setIdAmbilTabungan(idAmbil);
+        ambilTabunganObj.setNasabah(nasabah);
         ambilTabunganObj.setDateCreated(ambilTabungan.getDateCreated());
 
         ambilTabunganObj.setSaldoTaked(ambilTabungan.getSaldoTaked());
+        ambilTabunganObj.setUserId(idNasabah);
 
         Admin admin = adminRepository.findById(idAdmin).get();
         ambilTabunganObj.setAdmin(admin);
