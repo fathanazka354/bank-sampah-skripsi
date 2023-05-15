@@ -6,6 +6,7 @@ import com.skripsi.waste_bank.models.AmbilTabungan;
 import com.skripsi.waste_bank.services.AmbilTabunganService;
 import com.skripsi.waste_bank.services.SendImageService;
 import com.skripsi.waste_bank.utils.Constant;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -43,12 +46,13 @@ class AmbilTabunganController {
     @PostMapping("create/admin/{id-admin}/nasabah/{id-nasabah}")
     public ResponseEntity<ResponseData<AmbilTabungan>> createAmbilTabungan(
                                                                             @RequestParam(required = false) double saldoTaked,
-                                                                            @RequestParam(required = false) Date dateCreated,
+                                                                            @RequestParam(required = false) String dateCreated,
                                                                            @PathVariable("id-admin")Long idAdmin,
-                                                                           @PathVariable("id-nasabah")Long idNasabah){
+                                                                           @PathVariable("id-nasabah")Long idNasabah) throws ParseException {
         AmbilTabungan ambilTabungan = new AmbilTabungan();
         ambilTabungan.setSaldoTaked(saldoTaked);
-        ambilTabungan.setDateCreated(dateCreated);
+        val formatter = new SimpleDateFormat("dd-MM-yyyy");
+        ambilTabungan.setDateCreated(formatter.parse(dateCreated));
         return ambilTabunganService.createTabungan(ambilTabungan,idNasabah, idAdmin);
     }
 
