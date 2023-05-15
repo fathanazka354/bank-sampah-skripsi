@@ -28,7 +28,9 @@ public class SecurityConfiguration {
                         "/api/v1/auth/admin/register",
                         "/api/v1/auth/nasabah/login",
                         "/api/v1/auth/nasabah/register",
-                        "/api/v1/tabung-sampah/**")
+                        "/api/v1/tabung-sampah/**",
+                        "/api/v1/photo/create-firebase"
+                        )
                 .permitAll()
                 .anyRequest()
                 .authenticated()
