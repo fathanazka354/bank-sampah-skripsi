@@ -77,9 +77,9 @@ public class Nasabah implements UserDetails {
     @JsonIgnore
     private List<AmbilTabungan> ambilTabungans;
 
-    @OneToMany(mappedBy = "nasabah")
-    @JsonIgnore
-    private List<TabungSampah> tabungSampahs;
+//    @OneToMany(mappedBy = "nasabah")
+//    @JsonIgnore
+//    private List<TabungSampah> tabungSampahs;
 
     @CreationTimestamp
     @JoinColumn(name = "created_at",updatable = false)
