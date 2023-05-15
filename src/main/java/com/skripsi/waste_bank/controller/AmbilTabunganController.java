@@ -61,7 +61,7 @@ class AmbilTabunganController {
                                                                            @PathVariable("id-admin")Long idAdmin,
                                                                            @PathVariable("id-nasabah")Long idNasabah,
                                                                            @RequestParam(required = false) double saldoTaked,
-                                                                           @RequestParam(required = false) Date dateCreated){
+                                                                           @RequestParam(required = false) String dateCreated){
         AmbilTabungan ambilTabungan = new AmbilTabungan();
         ambilTabungan.setSaldoTaked(saldoTaked);
         ambilTabungan.setDateCreated(dateCreated);
