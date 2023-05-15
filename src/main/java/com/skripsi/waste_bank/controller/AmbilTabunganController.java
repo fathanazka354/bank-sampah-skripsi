@@ -61,10 +61,12 @@ class AmbilTabunganController {
                                                                            @PathVariable("id-admin")Long idAdmin,
                                                                            @PathVariable("id-nasabah")Long idNasabah,
                                                                            @RequestParam(required = false) double saldoTaked,
-                                                                           @RequestParam(required = false) String dateCreated){
+                                                                           @RequestParam(required = false) String dateCreated) throws ParseException {
         AmbilTabungan ambilTabungan = new AmbilTabungan();
         ambilTabungan.setSaldoTaked(saldoTaked);
-        ambilTabungan.setDateCreated(dateCreated);
+
+        val formatter = new SimpleDateFormat("dd-MM-yyyy");
+        ambilTabungan.setDateCreated(formatter.parse(dateCreated));
         return ambilTabunganService.updateTabungan(ambilTabungan, id,idAdmin,idNasabah);
     }
 
