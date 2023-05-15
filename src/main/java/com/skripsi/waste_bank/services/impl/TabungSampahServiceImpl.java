@@ -32,9 +32,9 @@ public class TabungSampahServiceImpl implements TabungSampahService {
     }
 
     @Override
-    public ResponseEntity<ResponseData<TabungSampah>> updateTabungSampah(TabungSampah tabungSampah) {
+    public ResponseEntity<ResponseData<TabungSampah>> updateTabungSampah(Long idTabungSampah,TabungSampah tabungSampah) {
 
-        if (!jenisPengambilanRepository.existsById(tabungSampah.getJenisPengangkutan().getIdJenisPengangkutan())){
+        if (!jenisPengambilanRepository.existsById(idTabungSampah)){
             return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Data Pengangkut is Empty"),"Data is not Updated");
         }
 

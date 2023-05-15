@@ -12,6 +12,7 @@ import java.util.List;
 public interface TabungSampahService {
     ResponseEntity<ResponseData<TabungSampah>> createTabungSampah(TabungSampah tabungSampah );
     ResponseEntity<ResponseData<TabungSampah>> updateTabungSampah(
+            Long idTabungSampah,
             TabungSampah tabungSampah );
     ResponseEntity<ResponseData<String>> deleteTabungSampah(Long id);
     ResponseEntity<ResponseData<List<TabungSampah>>> getAllTabungSampah();

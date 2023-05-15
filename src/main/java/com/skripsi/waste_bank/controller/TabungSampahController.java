@@ -44,11 +44,12 @@ public class TabungSampahController {
         return tabungSampahService.createTabungSampah(tabungSampah);
     }
 
-    @PutMapping("update/{tabung-sampah}")
+    @PutMapping("update/{id-tabung-sampah}")
     public ResponseEntity<ResponseData<TabungSampah>> updateTabungSampah(
+            @PathVariable("id-tabung-sampah") Long idTabungSampah,
             @RequestBody TabungSampah tabungSampah
     ){
-        return tabungSampahService.updateTabungSampah(tabungSampah);
+        return tabungSampahService.updateTabungSampah(idTabungSampah,tabungSampah);
     }
 
     @DeleteMapping("delete/{id}")
