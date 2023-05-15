@@ -1,5 +1,6 @@
 package com.skripsi.waste_bank.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,6 +31,7 @@ public class AmbilTabungan {
     private double saldoTaked;
 
     @JoinColumn(name = "date_created", nullable = false)
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date dateCreated;
 
     @ManyToOne(cascade = CascadeType.MERGE)
