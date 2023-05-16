@@ -17,6 +17,7 @@ public interface TabungSampahService {
             TabungSampah tabungSampah );
     ResponseEntity<ResponseData<String>> deleteTabungSampah(Long id);
     ResponseEntity<ResponseData<List<TabungSampah>>> getAllTabungSampah();
+    ResponseEntity<ResponseData<List<TabungSampah>>> getAllTabungSampahByIdNasabah(Long idNasabah);
     ResponseEntity<ResponseData<List<TabungSampah>>> getAllTabungSampahByTanggal(Date createdAt, Date updatedAt);
     ResponseEntity<ResponseData<TabungSampah>> getTabungSampahById(Long id);
     ResponseEntity<ResponseData<List<TabungSampah>>> getTabungSampahByIdNasabah(Long idNasabah);

@@ -33,6 +33,11 @@ class AmbilTabunganServiceImpl implements AmbilTabunganService {
     }
 
     @Override
+    public ResponseEntity<ResponseData<List<AmbilTabungan>>> getAllAmbilTabunganByIdNasabah(Long idNasabah) {
+        return methodGenericService.extractDataToResponse(ambilTabunganRepository.getAllAmbilTabunganByIdNasabah(idNasabah));
+    }
+
+    @Override
     public ResponseEntity<ResponseData<List<AmbilTabungan>>> getAllAmbilTabunganByTanggal(Date createdAt,
                                                                                           Date updatedAt) {
         return methodGenericService.extractDataToResponse(ambilTabunganRepository

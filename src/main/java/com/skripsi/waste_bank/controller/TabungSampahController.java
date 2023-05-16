@@ -39,6 +39,10 @@ public class TabungSampahController {
     public ResponseEntity<ResponseData<ResponseTotalTabungSampah>> getAllTabungSampahsTotal(){
         return tabungSampahService.getTabungSampahsTotal();
     }
+    @GetMapping("all/nasabah/{id-nasabah}")
+    public ResponseEntity<ResponseData<List<TabungSampah>>> getAllTabungSampahs(@PathVariable("id-nasabah")Long idNasabah){
+        return tabungSampahService.getAllTabungSampahByIdNasabah(idNasabah);
+    }
 
     @GetMapping("total/nasabah/{id}")
     public ResponseEntity<ResponseData<ResponseTotal>> getAllTabungSampahsTotalByIdNasabah(@PathVariable("id") Long idNasabah){

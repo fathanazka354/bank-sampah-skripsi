@@ -12,6 +12,7 @@ import java.util.List;
 @Service
 public interface AmbilTabunganService {
     ResponseEntity<ResponseData<List<AmbilTabungan>>> getAllAmbilTabungan();
+    ResponseEntity<ResponseData<List<AmbilTabungan>>> getAllAmbilTabunganByIdNasabah(Long idNasabah);
     ResponseEntity<ResponseData<List<AmbilTabungan>>> getAllAmbilTabunganByTanggal(Date createdAt, Date updatedAt);
     ResponseEntity<ResponseData<AmbilTabungan>> getAmbilTabunganById(Long id);
     ResponseEntity<ResponseData<ResponseTotal>> getAmbilTabungansTotal();

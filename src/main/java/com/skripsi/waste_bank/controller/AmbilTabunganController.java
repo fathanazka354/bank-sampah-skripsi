@@ -28,6 +28,11 @@ class AmbilTabunganController {
     public ResponseEntity<ResponseData<List<AmbilTabungan>>> getAllAmbilTabungan(){
         return ambilTabunganService.getAllAmbilTabungan();
     }
+
+    @GetMapping("all/nasabah/{id-nasabah}")
+    public ResponseEntity<ResponseData<List<AmbilTabungan>>> getAllAmbilTabunganByIdNasabah(@PathVariable("id-nasabah")Long idNasabah){
+        return ambilTabunganService.getAllAmbilTabunganByIdNasabah(idNasabah);
+    }
     @GetMapping("date")
     public ResponseEntity<ResponseData<List<AmbilTabungan>>> getAllAmbilTabunganByTanggal( @RequestParam(required = false) String createdAt,
                                                                                            @RequestParam(required = false) String updatedAt) throws ParseException {

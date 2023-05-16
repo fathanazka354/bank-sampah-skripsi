@@ -61,6 +61,11 @@ public class TabungSampahServiceImpl implements TabungSampahService {
     }
 
     @Override
+    public ResponseEntity<ResponseData<List<TabungSampah>>> getAllTabungSampahByIdNasabah(Long idNasabah) {
+        return methodGenericService.extractDataToResponse(tabungSampahRepository.getAllTabungSampahByIdNasabah(idNasabah));
+    }
+
+    @Override
     public ResponseEntity<ResponseData<List<TabungSampah>>> getAllTabungSampahByTanggal(Date createdAt, Date updatedAt) {
         return methodGenericService.extractDataToResponse(tabungSampahRepository.getTabungSampahByTanggal(createdAt, updatedAt));
     }
