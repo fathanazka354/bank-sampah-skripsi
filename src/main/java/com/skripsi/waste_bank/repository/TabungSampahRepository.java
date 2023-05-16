@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 public interface TabungSampahRepository extends JpaRepository<TabungSampah, Long> {
@@ -26,5 +27,9 @@ public interface TabungSampahRepository extends JpaRepository<TabungSampah, Long
 
     @Query("SELECT ts FROM TabungSampah ts WHERE ts.idTabungSampah = :idTabungSampah")
     TabungSampah getTabungSampahById(Long idTabungSampah);
+
+    @Query("SELECT ts FROM TabungSampah ts WHERE ts.createdAt = :createdAt OR ts.updatedAt = :updatedAt")
+    List<TabungSampah> getTabungSampahByTanggal(@Param("createdAt") Date createdAt,
+                                                @Param("updatedAt") Date updatedAt);
 
 }

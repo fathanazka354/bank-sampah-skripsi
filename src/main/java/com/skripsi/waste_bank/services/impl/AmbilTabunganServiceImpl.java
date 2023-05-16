@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,10 +29,14 @@ class AmbilTabunganServiceImpl implements AmbilTabunganService {
     @Autowired private MethodGenericService methodGenericService;
     @Override
     public ResponseEntity<ResponseData<List<AmbilTabungan>>> getAllAmbilTabungan() {
-        if (ambilTabunganRepository.findAll() == null){
-            return methodGenericService.extractDataToResponse(null);
-        }
         return methodGenericService.extractDataToResponse(ambilTabunganRepository.findAll());
+    }
+
+    @Override
+    public ResponseEntity<ResponseData<List<AmbilTabungan>>> getAllAmbilTabunganByTanggal(Date createdAt,
+                                                                                          Date updatedAt) {
+        return methodGenericService.extractDataToResponse(ambilTabunganRepository
+                .getAmbilTabunganByTanggal(createdAt, updatedAt));
     }
 
     @Override

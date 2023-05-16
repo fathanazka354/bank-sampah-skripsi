@@ -7,6 +7,7 @@ import com.skripsi.waste_bank.models.TabungSampah;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 @Service
 public interface TabungSampahService {
@@ -16,6 +17,7 @@ public interface TabungSampahService {
             TabungSampah tabungSampah );
     ResponseEntity<ResponseData<String>> deleteTabungSampah(Long id);
     ResponseEntity<ResponseData<List<TabungSampah>>> getAllTabungSampah();
+    ResponseEntity<ResponseData<List<TabungSampah>>> getAllTabungSampahByTanggal(Date createdAt, Date updatedAt);
     ResponseEntity<ResponseData<TabungSampah>> getTabungSampahById(Long id);
     ResponseEntity<ResponseData<List<TabungSampah>>> getTabungSampahByIdNasabah(Long idNasabah);
     ResponseEntity<ResponseData<ResponseTotalTabungSampah>> getTabungSampahsTotal();

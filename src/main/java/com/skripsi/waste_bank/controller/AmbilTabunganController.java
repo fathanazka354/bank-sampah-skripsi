@@ -28,6 +28,15 @@ class AmbilTabunganController {
     public ResponseEntity<ResponseData<List<AmbilTabungan>>> getAllAmbilTabungan(){
         return ambilTabunganService.getAllAmbilTabungan();
     }
+    @GetMapping("date")
+    public ResponseEntity<ResponseData<List<AmbilTabungan>>> getAllAmbilTabunganByTanggal( @RequestParam(required = false) String createdAt,
+                                                                                           @RequestParam(required = false) String updatedAt) throws ParseException {
+
+        val formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        val createdDate = formatter.parse(createdAt);
+        val updatedDate = formatter.parse(updatedAt);
+        return ambilTabunganService.getAllAmbilTabunganByTanggal(createdDate,updatedDate);
+    }
 
     @GetMapping("{id}")
     public ResponseEntity<ResponseData<AmbilTabungan>> getAmbilTabunganById(@PathVariable("id") Long id){

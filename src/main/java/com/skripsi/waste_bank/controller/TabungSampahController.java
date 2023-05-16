@@ -6,10 +6,13 @@ import com.skripsi.waste_bank.dto.ResponseTotalTabungSampah;
 import com.skripsi.waste_bank.models.TabungSampah;
 import com.skripsi.waste_bank.services.TabungSampahService;
 import jakarta.validation.Valid;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @RestController
@@ -21,6 +24,15 @@ public class TabungSampahController {
     @GetMapping("all")
     public ResponseEntity<ResponseData<List<TabungSampah>>> getAllTabungSampah(){
         return tabungSampahService.getAllTabungSampah();
+    }
+
+    @GetMapping("date")
+    public ResponseEntity<ResponseData<List<TabungSampah>>> getAllTabungSampahByTanggal( @RequestParam(required = false) String createdAt,
+                                                                                         @RequestParam(required = false) String updatedAt) throws ParseException {
+        val formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        val createdDate = formatter.parse(createdAt);
+        val updatedDate = formatter.parse(updatedAt);
+        return tabungSampahService.getAllTabungSampahByTanggal(createdDate,updatedDate);
     }
 
     @GetMapping("total")

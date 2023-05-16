@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,6 +58,11 @@ public class TabungSampahServiceImpl implements TabungSampahService {
     @Override
     public ResponseEntity<ResponseData<List<TabungSampah>>> getAllTabungSampah() {
         return methodGenericService.extractDataToResponse(tabungSampahRepository.getAllTabungSampah());
+    }
+
+    @Override
+    public ResponseEntity<ResponseData<List<TabungSampah>>> getAllTabungSampahByTanggal(Date createdAt, Date updatedAt) {
+        return methodGenericService.extractDataToResponse(tabungSampahRepository.getTabungSampahByTanggal(createdAt, updatedAt));
     }
 
     @Override
