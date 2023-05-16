@@ -112,6 +112,7 @@ public class NasabahServiceImpl implements NasabahService {
                 .lastName(nasabahDto.getLastName())
                 .address(nasabahDto.getAddress())
                 .email(nasabahDto.getEmail())
+                .telephone(nasabahDto.getNoTelephone())
                 .password(passwordEncoder.encode(nasabahDto.getPassword()))
                 .role(Role.NASABAH)
                 .tabungan(0.0)

@@ -17,21 +17,20 @@ public class NasabahDTO {
     @NotBlank(message = "Value Not blank")
     private String lastName;
 
-    @JoinColumn(name = "email")
     @Email(message = "Value Must Email")
     @NotBlank(message = "Value Not blank")
     private String email;
 
-    @JoinColumn(name = "password")
     @Size(min = 6,message = "Size must equal than 6 character")
     @NotBlank(message = "Value Not blank")
     private String password;
 
-    @JoinColumn(name = "address")
     @NotBlank(message = "Value Not blank")
     private String address;
 
-    @JoinColumn(name = "img_url")
+    @NotBlank(message = "Value Not blank")
+    private String noTelephone;
+
     private String imgUrl = Constant.DEFAULT_URL;
 
     @Value("false")

@@ -7,6 +7,7 @@ import com.skripsi.waste_bank.services.AdminService;
 import com.skripsi.waste_bank.services.NasabahService;
 import com.skripsi.waste_bank.services.SendImageService;
 import com.skripsi.waste_bank.utils.Constant;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -113,7 +114,7 @@ public class AuthController {
     }
 
     @PostMapping("nasabah/register")
-    public ResponseEntity<ResponseData<Nasabah>> createNasabah(@RequestBody NasabahDTO nasabahDto){
+    public ResponseEntity<ResponseData<Nasabah>> createNasabah(@RequestBody @Valid NasabahDTO nasabahDto){
 //        Nasabah nasabah = modelMapper.map(nasabahDto, Nasabah.class);
         return nasabahService.createNasabah(nasabahDto);
     }
