@@ -53,12 +53,10 @@ public class Information {
     @JoinColumn(name = "is_deleted")
     private boolean isDeleted;
 
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     @CreationTimestamp
     @JoinColumn(name = "created_at",updatable = false)
     private Date createdAt;
 
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     @UpdateTimestamp
     @JoinColumn(name = "updated_at")
     private Date updatedAt;
