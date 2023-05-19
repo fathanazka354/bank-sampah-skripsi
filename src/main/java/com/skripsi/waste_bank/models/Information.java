@@ -42,7 +42,7 @@ public class Information {
     @NotBlank(message = "Penerbit must be filled")
     private String penerbit;
 
-    @Column(name = "image_url")
+    @Column(name = "image_url",length = 1000)
     private String imgUrl = "";
 
     @Column(name = "type")

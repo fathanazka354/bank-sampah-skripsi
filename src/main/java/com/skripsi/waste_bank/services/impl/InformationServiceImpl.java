@@ -88,12 +88,15 @@ public class InformationServiceImpl implements InformationService {
         Information informationObj = new Information();
         Information informationById = informationRepository.findById(id).get();
 
+        System.out.println(information.getImgUrl());
+
         String judul = information.getJudul() == null ? informationById.getJudul() : information.getJudul();
         String deskripsi = information.getDeskripsi() == null ? informationById.getDeskripsi() : information.getDeskripsi();
         String penerbit = information.getPenerbit() == null ? informationById.getPenerbit() : information.getPenerbit();
         String imagUrl = information.getImgUrl() == null ? informationById.getImgUrl() : information.getImgUrl();
         String type = information.getType() == null ? informationById.getType() : information.getType();
 
+        System.out.println(imagUrl);
         informationObj.setIdInformation(id);
         informationObj.setJudul(judul);
         informationObj.setPenerbit(penerbit);

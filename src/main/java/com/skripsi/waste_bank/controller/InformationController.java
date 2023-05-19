@@ -54,7 +54,7 @@ public class InformationController {
                                                                   @RequestParam(required = false) String judul,
                                                                   @RequestParam(required = false) String deskripsi,
                                                                   @RequestParam(required = false) String penerbit,
-                                                                  @RequestParam(required = false)MultipartFile file){
+                                                                  @RequestParam(required = false) MultipartFile file){
 
         Information information = new Information();
         String url = "";
@@ -63,6 +63,8 @@ public class InformationController {
         }else {
             url = Constant.DEFAULT_URL;
         }
+
+        System.out.println(url);
         information.setPenerbit(penerbit);
         information.setDeskripsi(deskripsi);
         information.setJudul(judul);
