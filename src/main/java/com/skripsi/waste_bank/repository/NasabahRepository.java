@@ -35,6 +35,10 @@ public interface NasabahRepository extends JpaRepository<Nasabah, Long> {
 
     @Query("SELECT COUNT(a) FROM Nasabah a")
     Integer getUsersTotal();
+    @Query("SELECT a FROM Nasabah a WHERE a.isDeleted = false")
+    List<Nasabah> getUsersActive();
+    @Query("SELECT a FROM Nasabah a WHERE a.isDeleted = true")
+    List<Nasabah> getUsersNotActive();
 
     Optional<Nasabah> findByEmail(String email);
 

@@ -92,6 +92,16 @@ public class AuthController {
         return nasabahService.getAllNasabah();
     }
 
+    @GetMapping("nasabah/active")
+    public ResponseEntity<ResponseData<List<Nasabah>>> getAllNasabahActive(){
+        return nasabahService.getAllNasabahActive();
+    }
+
+    @GetMapping("nasabah/not-active")
+    public ResponseEntity<ResponseData<List<Nasabah>>> getAllNasabahNotActive(){
+        return nasabahService.getAllNasabahNotActive();
+    }
+
     @GetMapping("total")
     public ResponseEntity<ResponseData<ResponseTotal>> getAllNasabahTotal(){
         return nasabahService.getNasabahsTotal();

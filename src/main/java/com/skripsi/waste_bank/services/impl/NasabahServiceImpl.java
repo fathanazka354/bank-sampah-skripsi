@@ -38,6 +38,16 @@ public class NasabahServiceImpl implements NasabahService {
     }
 
     @Override
+    public ResponseEntity<ResponseData<List<Nasabah>>> getAllNasabahActive() {
+        return methodGenericService.extractDataToResponse(nasabahRepository.getUsersActive());
+    }
+
+    @Override
+    public ResponseEntity<ResponseData<List<Nasabah>>> getAllNasabahNotActive() {
+        return methodGenericService.extractDataToResponse(nasabahRepository.getUsersNotActive());
+    }
+
+    @Override
     public ResponseEntity<ResponseData<Nasabah>> getNasabahById(Long id) {
         if (!nasabahRepository.existsById(id)){
             return methodGenericService.extractDataToResponseSingle(false,null);

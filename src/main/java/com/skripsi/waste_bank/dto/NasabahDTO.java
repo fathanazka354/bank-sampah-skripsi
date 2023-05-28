@@ -33,7 +33,7 @@ public class NasabahDTO {
 
     private String imgUrl = Constant.DEFAULT_URL;
 
-    @Value("false")
+    @Value("true")
     @JoinColumn(name = "is_deleted")
     private boolean isDeleted;
 }

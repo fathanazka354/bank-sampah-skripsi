@@ -10,6 +10,8 @@ import java.util.List;
 @Service
 public interface NasabahService {
     ResponseEntity<ResponseData<List<Nasabah>>> getAllNasabah();
+    ResponseEntity<ResponseData<List<Nasabah>>> getAllNasabahActive();
+    ResponseEntity<ResponseData<List<Nasabah>>> getAllNasabahNotActive();
     ResponseEntity<ResponseData<Nasabah>> getNasabahById(Long id);
     ResponseEntity<ResponseData<ResponseTotal>> getNasabahsTotal();
     ResponseEntity<ResponseData<String>> deleteNasabahById(Long id);
