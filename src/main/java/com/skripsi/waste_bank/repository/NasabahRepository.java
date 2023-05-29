@@ -25,7 +25,7 @@ public interface NasabahRepository extends JpaRepository<Nasabah, Long> {
             "a.address = :address, " +
             "a.imgUrl = :imgUrl, " +
             "a.tabungan = :tabungan, " +
-            "a.telephone = :telephone " +
+            "a.telephone = :telephone, " +
             "a.isDeleted = :isDeleted WHERE a.idNasabah = :idNasabah")
     int updateNasabah(@Param("firstName")String firstName,
                       @Param("lastName")String lastName,
