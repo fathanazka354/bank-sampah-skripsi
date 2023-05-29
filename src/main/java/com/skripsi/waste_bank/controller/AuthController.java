@@ -138,6 +138,7 @@ public class AuthController {
                                                                @RequestParam(required = false) String address,
                                                                @RequestParam(required = false) Double tabungan,
                                                                @RequestParam(required = false) String telephone,
+                                                               @RequestParam(required = false) Boolean isDeleted,
                                                                @RequestParam(required = false) MultipartFile file){
         Nasabah nasabah = new Nasabah();
         String url = "";
@@ -153,6 +154,7 @@ public class AuthController {
         nasabah.setImgUrl(url);
         nasabah.setTelephone(telephone);
         nasabah.setTabungan(tabungan);
+        nasabah.setDeleted(isDeleted);
         return nasabahService.updateNasabahById(id,nasabah);
     }
 

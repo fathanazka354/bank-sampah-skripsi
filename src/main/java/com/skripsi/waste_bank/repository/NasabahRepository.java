@@ -18,7 +18,15 @@ public interface NasabahRepository extends JpaRepository<Nasabah, Long> {
 
     @Modifying
     @Transactional
-    @Query("UPDATE Nasabah a SET a.firstName = :firstName,a.lastName = :lastName, a.password = :password, a.email = :email, a.address = :address, a.imgUrl = :imgUrl, a.tabungan = :tabungan, a.telephone = :telephone WHERE a.idNasabah = :idNasabah")
+    @Query("UPDATE Nasabah a SET a.firstName = :firstName," +
+            "a.lastName = :lastName, " +
+            "a.password = :password, " +
+            "a.email = :email, " +
+            "a.address = :address, " +
+            "a.imgUrl = :imgUrl, " +
+            "a.tabungan = :tabungan, " +
+            "a.telephone = :telephone " +
+            "a.isDeleted = :isDeleted WHERE a.idNasabah = :idNasabah")
     int updateNasabah(@Param("firstName")String firstName,
                       @Param("lastName")String lastName,
                       @Param("password") String password,
@@ -27,6 +35,7 @@ public interface NasabahRepository extends JpaRepository<Nasabah, Long> {
                       @Param("address")String address,
                       @Param("tabungan")Double tabungan,
                       @Param("telephone")String telephone,
+                      @Param("isDeleted") Boolean isDeleted,
                       @Param("idNasabah") Long idNasabah
     );
 

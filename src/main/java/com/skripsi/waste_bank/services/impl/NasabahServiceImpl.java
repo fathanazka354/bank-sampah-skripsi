@@ -100,6 +100,7 @@ public class NasabahServiceImpl implements NasabahService {
                 nasabah.getAddress() == null ? nasabahById.get().getAddress():nasabah.getAddress(),
                 nasabah.getTabungan() == null ? nasabahById.get().getTabungan():nasabah.getTabungan(),
                 nasabah.getTelephone() == null ? nasabahById.get().getTelephone():nasabah.getTelephone(),
+                nasabah.isDeleted(),
                 nasabahById.get().getIdNasabah());
         if (result > 0){
             return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList(""),"Data updated");
