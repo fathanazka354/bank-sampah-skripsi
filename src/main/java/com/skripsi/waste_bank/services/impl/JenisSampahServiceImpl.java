@@ -47,7 +47,6 @@ public class JenisSampahServiceImpl implements JenisSampahService {
         jenisSampahObj.setIdJenisSampah(id);
         jenisSampahObj.setNamaJenisSampah(jenisSampah.getNamaJenisSampah());
         jenisSampahObj.setBeratSampah(jenisSampah.getBeratSampah());
-        jenisSampahObj.setImgUrl(jenisSampah.getImgUrl());
         jenisSampahRepository.saveAndFlush(jenisSampahObj);
         return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList(""),"Data Updated");
     }

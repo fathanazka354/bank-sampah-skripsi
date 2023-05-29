@@ -37,17 +37,9 @@ public class JenisSampahController {
 
     @PutMapping("update/{id}")
     public ResponseEntity<ResponseData<JenisSampah>> updateJenisSampah(@RequestParam(required = false) JenisSampahValue jenisSampahValue,
-                                                                       @PathVariable("id") Long id,
-                                                                       @RequestParam(required = false)MultipartFile file){
+                                                                       @PathVariable("id") Long id){
         JenisSampah jenisSampah = new JenisSampah();
-        String url = "";
-        if (file != null){
-            url = sendImageService.uploadImage(file);
-        }else {
-            url = Constant.DEFAULT_URL;
-        }
         jenisSampah.setNamaJenisSampah(jenisSampahValue);
-        jenisSampah.setImgUrl(url);
 
         return jenisSampahService.updateJenisSampah(id,jenisSampah);
     }

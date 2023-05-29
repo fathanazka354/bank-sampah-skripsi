@@ -34,9 +34,6 @@ public class JenisSampah {
     @JoinColumn(name = "berat_sampah", nullable = false)
     private Double beratSampah;
 
-    @Column(name = "image_url")
-    private String imgUrl = Constant.DEFAULT_URL;
-
     @Value("false")
     @JoinColumn(name = "is_deleted")
     private boolean isDeleted;
