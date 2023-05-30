@@ -50,7 +50,7 @@ public class AuthController {
     }
 
     @PutMapping("admin/update/{id}")
-    public ResponseEntity<ResponseData<ResponseToken>> updateAdmin(@PathVariable("id")Long id,
+    public ResponseEntity<ResponseData<String>> updateAdmin(@PathVariable("id")Long id,
                                              @RequestParam(required = false) String firstName,
                                              @RequestParam(required = false) String lastName,
                                              @RequestParam(required = false) String email,

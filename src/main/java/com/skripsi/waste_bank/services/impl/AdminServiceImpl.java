@@ -72,7 +72,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public ResponseEntity<ResponseData<ResponseToken>> updateAdmin(Long id, Admin admin) {
+    public ResponseEntity<ResponseData<String>> updateAdmin(Long id, Admin admin) {
         Optional<Admin> adminOptional  = adminRepository.findById(id);
         if (adminOptional.isEmpty()) {
             logger.info("Data admin tidak ditemukan");
@@ -92,7 +92,7 @@ public class AdminServiceImpl implements AdminService {
                 adminOptional.get().getIdAdmin());
         logger.info("Data Updated {}",admin.getEmail());
         if (result > 0){
-            return methodGenericService.extractDataToResponseSingleCreateUpdate(List.of(""), "Data successfully to update");
+            return methodGenericService.extractDataToResponseSingleCreateUpdate(List.of(""), "Data updated");
         }
         return methodGenericService.extractDataToResponseSingleCreateUpdate(List.of("Data failed to update"), "Data is not Updated");
     }
