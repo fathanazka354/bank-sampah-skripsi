@@ -47,11 +47,11 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public ResponseEntity<ResponseData<Notification>> createNotification(NotificationRequest notificationRequest) {
+    public ResponseEntity<ResponseData<String>> createNotification(NotificationRequest notificationRequest) {
         if(nasabahRepository.findByEmail(notificationRequest.getUserId()).isEmpty() &&
                 adminRepository.findByEmail(notificationRequest.getUserId()).isEmpty()){
             return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("please check your email"),"Data is not saved");
-        };
+        }
         Notification notification = Notification.builder()
                 .title(notificationRequest.getTitle())
                 .description(notificationRequest.getDescription())

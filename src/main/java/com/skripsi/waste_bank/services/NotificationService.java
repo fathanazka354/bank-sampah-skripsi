@@ -14,5 +14,5 @@ public interface NotificationService {
      ResponseEntity<ResponseData<List<Notification>>> getAllNotificationsByIdUser(String idUser);
      ResponseEntity<ResponseData<List<Notification>>> getAllNotificationsByIdUserAndType(String idUser, TypeNotification type);
      ResponseEntity<ResponseData<Notification>> getNotificationById(Long id);
-     ResponseEntity<ResponseData<Notification>> createNotification(NotificationRequest notificationRequest);
+     ResponseEntity<ResponseData<String>> createNotification(NotificationRequest notificationRequest);
 }

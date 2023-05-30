@@ -60,7 +60,7 @@ public class Nasabah implements UserDetails {
     @NotBlank(message = "telephone can Not blank")
     private String telephone;
 
-    @Column(name = "image_url")
+    @Column(name = "image_url",length = 1000)
     private String imgUrl = Constant.DEFAULT_URL;
 
     @Value("true")

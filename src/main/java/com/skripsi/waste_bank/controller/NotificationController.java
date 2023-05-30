@@ -32,12 +32,12 @@ public class NotificationController {
                                                                                                @RequestParam("type")String type){
         return notificationService.getAllNotificationsByIdUserAndType(email, TypeNotification.valueOf(type));
     }
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<ResponseData<Notification>> getNotificationById(@PathVariable("id") Long id){
         return notificationService.getNotificationById(id);
     }
     @PostMapping("create")
-    public ResponseEntity<ResponseData<Notification>> createNotification(@RequestBody @Valid NotificationRequest notificationRequest){
+    public ResponseEntity<ResponseData<String>> createNotification(@RequestBody @Valid NotificationRequest notificationRequest){
         return notificationService.createNotification(notificationRequest);
     }
 }
