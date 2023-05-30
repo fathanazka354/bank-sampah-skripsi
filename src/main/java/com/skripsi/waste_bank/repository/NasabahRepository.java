@@ -41,6 +41,11 @@ public interface NasabahRepository extends JpaRepository<Nasabah, Long> {
     @Query("UPDATE Nasabah a SET a.tabungan = :tabungan " +
             " WHERE a.idNasabah = :idNasabah")
     int updateTabunganNasabah(@Param("idNasabah") Long idNasabah,@Param("tabungan")Double tabungan);
+    @Modifying
+    @Transactional
+    @Query("UPDATE Nasabah a SET a.imgUrl = :imgUrl " +
+            " WHERE a.idNasabah = :idNasabah")
+    int updateFotoNasabah(@Param("idNasabah") Long idNasabah,@Param("imgUrl")String imgUrl);
 
     @Query("SELECT a FROM Nasabah a WHERE  a.email = :email")
     List<Nasabah> checkUserExists(@Param("email") String email);

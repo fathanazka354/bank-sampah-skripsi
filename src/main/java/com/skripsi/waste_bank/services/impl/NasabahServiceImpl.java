@@ -108,6 +108,18 @@ public class NasabahServiceImpl implements NasabahService {
     }
 
     @Override
+    public ResponseEntity<ResponseData<String>> updateNasabahFotoById(Long id, Nasabah nasabah) {
+        if (!nasabahRepository.existsById(id)) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        int result = nasabahRepository.updateFotoNasabah(id,nasabah.getImgUrl());
+        if (result > 0){
+            return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList(""),"Data updated");
+        }
+        return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Data cannot update"),null);
+    }
+
+    @Override
     public ResponseEntity<ResponseData<String>> updateTabunganNasabahById(Long id, double saldo) {
 
         if (!nasabahRepository.existsById(id)) {
