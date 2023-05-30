@@ -96,7 +96,6 @@ public class NasabahServiceImpl implements NasabahService {
                 nasabah.getLastName() == null ? nasabahById.get().getLastName():nasabah.getLastName(),
                 nasabah.getPassword() == null ? nasabahById.get().getPassword(): passwordEncoder.encode(nasabah.getPassword()),
                 nasabah.getEmail() == null ? nasabahById.get().getEmail():nasabah.getEmail(),
-                Objects.equals(nasabah.getImgUrl(), "") ? nasabahById.get().getImgUrl():nasabah.getImgUrl(),
                 nasabah.getAddress() == null ? nasabahById.get().getAddress():nasabah.getAddress(),
                 nasabah.getTelephone() == null ? nasabahById.get().getTelephone():nasabah.getTelephone(),
                 nasabah.isDeleted(),

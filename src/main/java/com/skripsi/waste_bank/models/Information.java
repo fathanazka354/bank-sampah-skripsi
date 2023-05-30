@@ -34,7 +34,7 @@ public class Information {
     @NotBlank(message = "Judul must be filled")
     private String judul;
 
-    @JoinColumn(name = "deskripsi")
+    @Column(name = "deskripsi",length = 10000)
     @NotBlank(message = "Deskripsi must be filled")
     private String deskripsi;
 

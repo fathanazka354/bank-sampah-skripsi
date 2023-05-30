@@ -138,20 +138,13 @@ public class AuthController {
                                                                @RequestParam(required = false) String address,
                                                                @RequestParam(required = false) Double tabungan,
                                                                @RequestParam(required = false) String telephone,
-                                                               @RequestParam(required = false) Boolean isDeleted,
-                                                               @RequestParam(required = false) MultipartFile file){
+                                                               @RequestParam(required = false) Boolean isDeleted){
         Nasabah nasabah = new Nasabah();
-        String url = "";
-        if (file != null){
-            url = sendImageService.uploadImage(file);
-        }
-
         nasabah.setPassword(password);
         nasabah.setFirstName(firstName);
         nasabah.setLastName(lastName);
         nasabah.setEmail(email);
         nasabah.setAddress(address);
-        nasabah.setImgUrl(url);
         nasabah.setTelephone(telephone);
         nasabah.setTabungan(tabungan);
         nasabah.setDeleted(isDeleted);
