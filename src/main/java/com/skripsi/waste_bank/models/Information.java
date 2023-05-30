@@ -30,7 +30,7 @@ public class Information {
     @JoinColumn(name = "id_admin")
     private Admin admin;
 
-    @Column(name = "judul")
+    @Column(name = "judul",length = 10000)
     @NotBlank(message = "Judul must be filled")
     private String judul;
 
