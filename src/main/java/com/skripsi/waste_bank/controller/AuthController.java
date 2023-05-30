@@ -158,6 +158,12 @@ public class AuthController {
         return nasabahService.updateNasabahById(id,nasabah);
     }
 
+    @PutMapping("nasabah/update-tabungan/{id}")
+    public ResponseEntity<ResponseData<Nasabah>> updateTabunganNasabah(@PathVariable("id") Long id,
+                                                               @RequestParam(required = false) Double tabungan){
+        return nasabahService.updateTabunganNasabahById(id,tabungan);
+    }
+
     @DeleteMapping("nasabah/delete/{id}")
     public ResponseEntity<ResponseData<String>> deleteNasabahById(@PathVariable("id") Long id){
         return nasabahService.deleteNasabahById(id);

@@ -24,7 +24,6 @@ public interface NasabahRepository extends JpaRepository<Nasabah, Long> {
             "a.email = :email, " +
             "a.address = :address, " +
             "a.imgUrl = :imgUrl, " +
-            "a.tabungan = :tabungan, " +
             "a.telephone = :telephone, " +
             "a.isDeleted = :isDeleted WHERE a.idNasabah = :idNasabah")
     int updateNasabah(@Param("firstName")String firstName,
@@ -33,11 +32,15 @@ public interface NasabahRepository extends JpaRepository<Nasabah, Long> {
                       @Param("email") String email,
                       @Param("imgUrl") String imgUrl,
                       @Param("address")String address,
-                      @Param("tabungan")Double tabungan,
                       @Param("telephone")String telephone,
                       @Param("isDeleted") Boolean isDeleted,
                       @Param("idNasabah") Long idNasabah
     );
+    @Modifying
+    @Transactional
+    @Query("UPDATE Nasabah a SET a.tabungan = :tabungan " +
+            " WHERE a.idNasabah = :idNasabah")
+    int updateTabunganNasabah(@Param("idNasabah") Long idNasabah,@Param("tabungan")Double tabungan);
 
     @Query("SELECT a FROM Nasabah a WHERE  a.email = :email")
     List<Nasabah> checkUserExists(@Param("email") String email);

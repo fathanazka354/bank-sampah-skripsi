@@ -98,10 +98,22 @@ public class NasabahServiceImpl implements NasabahService {
                 nasabah.getEmail() == null ? nasabahById.get().getEmail():nasabah.getEmail(),
                 Objects.equals(nasabah.getImgUrl(), "") ? nasabahById.get().getImgUrl():nasabah.getImgUrl(),
                 nasabah.getAddress() == null ? nasabahById.get().getAddress():nasabah.getAddress(),
-                nasabah.getTabungan() == null ? nasabahById.get().getTabungan():nasabah.getTabungan(),
                 nasabah.getTelephone() == null ? nasabahById.get().getTelephone():nasabah.getTelephone(),
                 nasabah.isDeleted(),
                 nasabahById.get().getIdNasabah());
+        if (result > 0){
+            return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList(""),"Data updated");
+        }
+        return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Data cannot update"),null);
+    }
+
+    @Override
+    public ResponseEntity<ResponseData<Nasabah>> updateTabunganNasabahById(Long id, double saldo) {
+
+        if (!nasabahRepository.existsById(id)) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        int result = nasabahRepository.updateTabunganNasabah(id,saldo);
         if (result > 0){
             return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList(""),"Data updated");
         }
