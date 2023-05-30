@@ -76,7 +76,7 @@ public class NasabahServiceImpl implements NasabahService {
     }
 
     @Override
-    public ResponseEntity<ResponseData<Nasabah>> updateNasabahById(Long id, Nasabah nasabah) {
+    public ResponseEntity<ResponseData<String>> updateNasabahById(Long id, Nasabah nasabah) {
 
         if (!nasabahRepository.existsById(id)) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -108,7 +108,7 @@ public class NasabahServiceImpl implements NasabahService {
     }
 
     @Override
-    public ResponseEntity<ResponseData<Nasabah>> updateTabunganNasabahById(Long id, double saldo) {
+    public ResponseEntity<ResponseData<String>> updateTabunganNasabahById(Long id, double saldo) {
 
         if (!nasabahRepository.existsById(id)) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

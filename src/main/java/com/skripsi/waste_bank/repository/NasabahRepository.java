@@ -54,6 +54,4 @@ public interface NasabahRepository extends JpaRepository<Nasabah, Long> {
 
     Optional<Nasabah> findByEmail(String email);
 
-//    @Query("SELECT n FROM Nasabah n WHERE (n.firstName = :firstName AND n.password = :password) OR (n.email = :email AND n.password = :password)")
-//    List<Nasabah> login(@Param("firstName") String firstName, @Param("email") String email, @Param("password") String password);
 }

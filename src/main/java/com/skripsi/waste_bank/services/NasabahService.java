@@ -15,8 +15,8 @@ public interface NasabahService {
     ResponseEntity<ResponseData<Nasabah>> getNasabahById(Long id);
     ResponseEntity<ResponseData<ResponseTotal>> getNasabahsTotal();
     ResponseEntity<ResponseData<String>> deleteNasabahById(Long id);
-    ResponseEntity<ResponseData<Nasabah>> updateNasabahById(Long id, Nasabah nasabah);
-    ResponseEntity<ResponseData<Nasabah>> updateTabunganNasabahById(Long id, double saldo);
+    ResponseEntity<ResponseData<String>> updateNasabahById(Long id, Nasabah nasabah);
+    ResponseEntity<ResponseData<String>> updateTabunganNasabahById(Long id, double saldo);
     ResponseEntity<ResponseData<Nasabah>> createNasabah(NasabahDTO nasabah);
     ResponseEntity<ResponseData<AuthenticationResponse>> login(String email, String password);
     ResponseEntity<ResponseData<Nasabah>> getByEmail( String email);

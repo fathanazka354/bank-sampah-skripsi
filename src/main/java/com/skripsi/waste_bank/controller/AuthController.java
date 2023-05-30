@@ -130,7 +130,7 @@ public class AuthController {
     }
 
     @PutMapping("nasabah/update/{id}")
-    public ResponseEntity<ResponseData<Nasabah>> updateNasabah(@PathVariable("id") Long id,
+    public ResponseEntity<ResponseData<String>> updateNasabah(@PathVariable("id") Long id,
                                                                @RequestParam(required = false) String firstName,
                                                                @RequestParam(required = false) String lastName,
                                                                @RequestParam(required = false) String email,
@@ -159,7 +159,7 @@ public class AuthController {
     }
 
     @PutMapping("nasabah/update-tabungan/{id}")
-    public ResponseEntity<ResponseData<Nasabah>> updateTabunganNasabah(@PathVariable("id") Long id,
+    public ResponseEntity<ResponseData<String>> updateTabunganNasabah(@PathVariable("id") Long id,
                                                                @RequestParam(required = false) Double tabungan){
         return nasabahService.updateTabunganNasabahById(id,tabungan);
     }
