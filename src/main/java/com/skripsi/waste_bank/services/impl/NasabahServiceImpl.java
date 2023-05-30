@@ -139,6 +139,7 @@ public class NasabahServiceImpl implements NasabahService {
                 .password(passwordEncoder.encode(nasabahDto.getPassword()))
                 .role(Role.NASABAH)
                 .tabungan(0.0)
+                .imgUrl(nasabahDto.getImgUrl())
                 .isDeleted(true)
                 .build();
 
