@@ -14,7 +14,7 @@ public interface InformationRepository extends JpaRepository<Information,Long> {
     @Query("SELECT i FROM Information i")
     List<Information> getAllInformation();
 
-    @Query("SELECT COUNT(i) FROM Information i")
+    @Query("SELECT COUNT(i) FROM Information i WHERE i.isDeleted = false")
     Integer getAllInformationTotal();
 
     @Query("SELECT i FROM Information i WHERE i.isDeleted = false")
