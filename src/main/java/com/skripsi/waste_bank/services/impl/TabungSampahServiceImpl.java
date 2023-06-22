@@ -24,7 +24,7 @@ public class TabungSampahServiceImpl implements TabungSampahService {
     private TabungSampahRepository tabungSampahRepository;
     private NasabahRepository nasabahRepository;
     private MethodGenericService methodGenericService;
-    private JenisPengambilanRepository jenisPengambilanRepository;
+//    private JenisPengambilanRepository jenisPengambilanRepository;
     @Override
     public ResponseEntity<ResponseData<TabungSampah>> createTabungSampah(TabungSampah tabungSampah) {
         tabungSampahRepository.saveAndFlush(tabungSampah);
@@ -34,9 +34,9 @@ public class TabungSampahServiceImpl implements TabungSampahService {
     @Override
     public ResponseEntity<ResponseData<TabungSampah>> updateTabungSampah(Long idTabungSampah,TabungSampah tabungSampah) {
 
-        if (!jenisPengambilanRepository.existsById(idTabungSampah)){
-            return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Data Pengangkut is Empty"),"Data is not Updated");
-        }
+//        if (!jenisPengambilanRepository.existsById(idTabungSampah)){
+//            return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Data Pengangkut is Empty"),"Data is not Updated");
+//        }
 
         tabungSampahRepository.saveAndFlush(tabungSampah);
 
