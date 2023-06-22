@@ -47,9 +47,9 @@ public class TabungSampah {
     @OneToMany(cascade = CascadeType.ALL)
     private List<TabungSampahDetail> tabungSampahDetail;
 
-    @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "id_jenis_pengangkutan")
-    private JenisPengangkutan jenisPengangkutan;
+//    @OneToOne(cascade = CascadeType.MERGE)
+//    @JoinColumn(name = "id_jenis_pengangkutan")
+//    private JenisPengangkutan jenisPengangkutan;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_nasabah")
