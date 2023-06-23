@@ -98,9 +98,21 @@ public class NasabahServiceImpl implements NasabahService {
                 nasabah.getEmail() == null ? nasabahById.get().getEmail():nasabah.getEmail(),
                 nasabah.getAddress() == null ? nasabahById.get().getAddress():nasabah.getAddress(),
                 nasabah.getTelephone() == null ? nasabahById.get().getTelephone():nasabah.getTelephone(),
-                nasabah.getImgUrl() == null ? nasabahById.get().getImgUrl():nasabah.getImgUrl(),
                 nasabah.isDeleted(),
                 nasabahById.get().getIdNasabah());
+        if (result > 0){
+            return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList(""),"Data updated");
+        }
+        return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList("Data cannot update"),null);
+    }
+
+    @Override
+    public ResponseEntity<ResponseData<String>> updateFotoNasabahById(Long id, String imgUrl) {
+
+        if (!nasabahRepository.existsById(id)) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        int result = nasabahRepository.updateFotoNasabah(imgUrl,id);
         if (result > 0){
             return methodGenericService.extractDataToResponseSingleCreateUpdate(Arrays.asList(""),"Data updated");
         }

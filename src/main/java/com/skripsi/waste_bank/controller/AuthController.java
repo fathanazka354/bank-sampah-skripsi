@@ -153,6 +153,13 @@ public class AuthController {
         return nasabahService.updateNasabahById(id,nasabah);
     }
 
+    @PutMapping("nasabah/update-foto/{id}")
+    public ResponseEntity<ResponseData<String>> updateFotoNasabah(@PathVariable("id") Long id,
+                                                               @RequestParam(required = false) String imgUrl){
+
+        return nasabahService.updateFotoNasabahById(id,imgUrl);
+    }
+
     @PostMapping("nasabah/update-foto/{id}")
     public ResponseEntity<ResponseData<String>> updateNasabahFoto(@PathVariable("id") Long id,
                                                                @RequestParam(required = false) MultipartFile file){

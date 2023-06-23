@@ -24,7 +24,6 @@ public interface NasabahRepository extends JpaRepository<Nasabah, Long> {
             "a.email = :email, " +
             "a.address = :address, " +
             "a.telephone = :telephone, " +
-            "a.imgUrl = :imgUrl, " +
             "a.isDeleted = :isDeleted WHERE a.idNasabah = :idNasabah")
     int updateNasabah(@Param("firstName")String firstName,
                       @Param("lastName")String lastName,
@@ -32,8 +31,15 @@ public interface NasabahRepository extends JpaRepository<Nasabah, Long> {
                       @Param("email") String email,
                       @Param("address")String address,
                       @Param("telephone")String telephone,
-                      @Param("imgUrl")String imgUrl,
                       @Param("isDeleted") Boolean isDeleted,
+                      @Param("idNasabah") Long idNasabah
+    );
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE Nasabah a SET a.imgUrl = :imgUrl" +
+            " WHERE a.idNasabah = :idNasabah")
+    int updateFotoNasabah(@Param("imgUrl")String imgUrl,
                       @Param("idNasabah") Long idNasabah
     );
     @Modifying
