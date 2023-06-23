@@ -151,7 +151,7 @@ public class AuthController {
         return nasabahService.updateNasabahById(id,nasabah);
     }
 
-    @PutMapping("nasabah/update-foto/{id}")
+    @PostMapping("nasabah/update-foto/{id}")
     public ResponseEntity<ResponseData<String>> updateNasabahFoto(@PathVariable("id") Long id,
                                                                @RequestParam(required = false) MultipartFile file){
         Nasabah nasabah = new Nasabah();
