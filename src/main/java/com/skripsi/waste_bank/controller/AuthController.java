@@ -136,6 +136,7 @@ public class AuthController {
                                                                @RequestParam(required = false) String email,
                                                                @RequestParam(required = false) String password,
                                                                @RequestParam(required = false) String address,
+                                                               @RequestParam(required = false) String imgUrl,
                                                                @RequestParam(required = false) Double tabungan,
                                                                @RequestParam(required = false) String telephone,
                                                                @RequestParam(required = false) Boolean isDeleted){
@@ -146,6 +147,7 @@ public class AuthController {
         nasabah.setEmail(email);
         nasabah.setAddress(address);
         nasabah.setTelephone(telephone);
+        nasabah.setImgUrl(imgUrl);
         nasabah.setTabungan(tabungan);
         nasabah.setDeleted(isDeleted);
         return nasabahService.updateNasabahById(id,nasabah);

@@ -98,6 +98,7 @@ public class NasabahServiceImpl implements NasabahService {
                 nasabah.getEmail() == null ? nasabahById.get().getEmail():nasabah.getEmail(),
                 nasabah.getAddress() == null ? nasabahById.get().getAddress():nasabah.getAddress(),
                 nasabah.getTelephone() == null ? nasabahById.get().getTelephone():nasabah.getTelephone(),
+                nasabah.getImgUrl() == null ? nasabahById.get().getImgUrl():nasabah.getImgUrl(),
                 nasabah.isDeleted(),
                 nasabahById.get().getIdNasabah());
         if (result > 0){
