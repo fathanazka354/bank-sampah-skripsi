@@ -13,6 +13,8 @@ import java.util.List;
 @Service
 public interface AdminService {
     public ResponseEntity<ResponseData<List<Admin>>> getAllAdmin();
+    public ResponseEntity<ResponseData<List<Admin>>> getAllAdminActive();
+    public ResponseEntity<ResponseData<List<Admin>>> getAllAdminNotActive();
     public ResponseEntity<ResponseData<Admin>> getAdminById(Long id);
     public ResponseEntity<ResponseData<Admin>> createAdmin(RegisterRequest admin);
     public ResponseEntity<ResponseData<String>> updateAdmin(Long id, Admin admin);

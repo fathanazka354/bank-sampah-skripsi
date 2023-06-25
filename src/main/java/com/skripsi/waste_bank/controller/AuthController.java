@@ -33,6 +33,16 @@ public class AuthController {
         return adminService.getAllAdmin();
     }
 
+    @GetMapping("admin-active")
+    public ResponseEntity<ResponseData<List<Admin>>> getAllAdminActive(){
+        return adminService.getAllAdminActive();
+    }
+
+    @GetMapping("admin-not-active")
+    public ResponseEntity<ResponseData<List<Admin>>> getAllAdminNotActive(){
+        return adminService.getAllAdminNotActive();
+    }
+
 
     @GetMapping("admin/{id}")
     public ResponseEntity<ResponseData<Admin>> getAdminById(@PathVariable("id") Long id){
@@ -49,25 +59,22 @@ public class AuthController {
         return adminService.createAdmin(admin);
     }
 
-    @PutMapping("admin/update/{id}")
+    @PostMapping("admin/update/{id}")
     public ResponseEntity<ResponseData<String>> updateAdmin(@PathVariable("id")Long id,
                                              @RequestParam(required = false) String firstName,
                                              @RequestParam(required = false) String lastName,
                                              @RequestParam(required = false) String email,
                                              @RequestParam(required = false) String password,
-                                             @RequestParam(required = false) MultipartFile file) {
+                                             @RequestParam(required = false) String imgUrl) {
 
         Admin admin = new Admin();
-        String url = "";
-        if (file != null){
-            url = sendImageService.uploadImage(file);
-        }
+
 
         admin.setPassword(password);
         admin.setFirstName(firstName);
         admin.setLastName(lastName);
         admin.setEmail(email);
-        admin.setImgUrl(url);
+        admin.setImgUrl(imgUrl);
 
         return adminService.updateAdmin(id, admin);
     }

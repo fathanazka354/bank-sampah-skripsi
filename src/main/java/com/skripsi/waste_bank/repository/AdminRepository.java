@@ -28,6 +28,10 @@ public interface AdminRepository extends JpaRepository<Admin, Long> {
     List<Admin> checkUserExists( @Param("email") String email);
 
 
-//    @Query("SELECT n FROM Admin n WHERE (n.username = :username AND n.password = :password) OR (n.email = :email AND n.password = :password)")
-//    List<Admin> login(@Param("username") String username, @Param("email") String email, @Param("password") String password);
+    @Query("SELECT a FROM Admin WHERE a.isActive = true")
+    List<Admin> getAllAdminActive();
+
+    @Query("SELECT a FROM Admin WHERE a.isActive = false")
+    List<Admin> getAllAdminNotActive();
+
 }

@@ -37,6 +37,16 @@ public class AdminServiceImpl implements AdminService {
         return extractGetAllAdmin();
     }
 
+    @Override
+    public ResponseEntity<ResponseData<List<Admin>>> getAllAdminActive() {
+        return methodGenericService.extractDataToResponse(adminRepository.getAllAdminActive());
+    }
+
+    @Override
+    public ResponseEntity<ResponseData<List<Admin>>> getAllAdminNotActive() {
+        return methodGenericService.extractDataToResponse(adminRepository.getAllAdminNotActive());
+    }
+
     ResponseEntity<ResponseData<List<Admin>>> extractGetAllAdmin(){
         return methodGenericService.extractDataToResponse(adminRepository.findAll());
     }
@@ -63,7 +73,7 @@ public class AdminServiceImpl implements AdminService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
-                .isActive(true)
+                .isActive(false)
                 .role(Role.ADMIN)
                 .build();
 

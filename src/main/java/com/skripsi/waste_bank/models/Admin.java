@@ -52,7 +52,7 @@ public class Admin implements UserDetails {
     private String imgUrl = Constant.DEFAULT_URL;
 
     @Column(name = "isActive")
-    private boolean isActive = true;
+    private boolean isActive;
 
     @Column(name="role")
     private Role role;
