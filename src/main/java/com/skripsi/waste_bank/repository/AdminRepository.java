@@ -33,5 +33,4 @@ public interface AdminRepository extends JpaRepository<Admin, Long> {
 
     @Query("SELECT a FROM Admin a WHERE a.isActive = false")
     List<Admin> getAllAdminNotActive();
-
 }
