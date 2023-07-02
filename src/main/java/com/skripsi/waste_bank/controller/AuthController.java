@@ -141,14 +141,14 @@ public class AuthController {
                                                                @RequestParam(required = false) String firstName,
                                                                @RequestParam(required = false) String lastName,
                                                                @RequestParam(required = false) String email,
-                                                               @RequestParam(required = false) String password,
+//                                                               @RequestParam(required = false) String password,
                                                                @RequestParam(required = false) String address,
                                                                @RequestParam(required = false) String imgUrl,
                                                                @RequestParam(required = false) Double tabungan,
                                                                @RequestParam(required = false) String telephone,
                                                                @RequestParam(required = false) Boolean isDeleted){
         Nasabah nasabah = new Nasabah();
-        nasabah.setPassword(password);
+//        nasabah.setPassword(password);
         nasabah.setFirstName(firstName);
         nasabah.setLastName(lastName);
         nasabah.setEmail(email);

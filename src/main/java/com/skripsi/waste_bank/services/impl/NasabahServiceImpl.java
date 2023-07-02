@@ -94,7 +94,6 @@ public class NasabahServiceImpl implements NasabahService {
         int result = nasabahRepository.updateNasabah(
                 nasabah.getFirstName() == null ? nasabahById.get().getFirstName():nasabah.getFirstName(),
                 nasabah.getLastName() == null ? nasabahById.get().getLastName():nasabah.getLastName(),
-                nasabah.getPassword() == null ? nasabahById.get().getPassword(): passwordEncoder.encode(nasabah.getPassword()),
                 nasabah.getEmail() == null ? nasabahById.get().getEmail():nasabah.getEmail(),
                 nasabah.getAddress() == null ? nasabahById.get().getAddress():nasabah.getAddress(),
                 nasabah.getTelephone() == null ? nasabahById.get().getTelephone():nasabah.getTelephone(),
